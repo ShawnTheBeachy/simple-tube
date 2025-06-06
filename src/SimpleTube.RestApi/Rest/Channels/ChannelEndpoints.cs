@@ -62,6 +62,7 @@ internal static class ChannelEndpoints
                     };
                 }
             )
+            .CacheOutput()
             .WithName("Get channel by handle")
             .WithTags("channels");
         group
@@ -88,6 +89,24 @@ internal static class ChannelEndpoints
                 }
             )
             .WithName("Subscribe to channel")
+            .WithTags("channels");
+        group
+            .MapDelete(
+                "/{channelHandle}",
+                async (
+                    string channelHandle,
+                    IMediator mediator,
+                    CancellationToken cancellationToken
+                ) =>
+                {
+                    _ = await mediator.Execute<UnsubscribeCommand, UnsubscribeCommand.Result>(
+                        new UnsubscribeCommand { ChannelHandle = channelHandle },
+                        cancellationToken
+                    );
+                    return TypedResults.Ok();
+                }
+            )
+            .WithName("Unsubscribe from channel")
             .WithTags("channels");
         return builder;
     }

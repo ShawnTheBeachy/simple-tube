@@ -19,4 +19,9 @@ namespace SimpleTube.Shared.Mediator.Internal;
     typeof(ChannelsQuery.Result),
     TypeInfoPropertyName = $"{nameof(Queries.ChannelsQuery)}{nameof(Queries.ChannelsQuery.Result)}"
 )]
+[JsonSerializable(typeof(UnsubscribeCommand))]
+[JsonSerializable(
+    typeof(UnsubscribeCommand.Result),
+    TypeInfoPropertyName = $"{nameof(Commands.UnsubscribeCommand)}{nameof(Commands.UnsubscribeCommand.Result)}"
+)]
 internal sealed partial class MediatorJsonSerializerContext : JsonSerializerContext;

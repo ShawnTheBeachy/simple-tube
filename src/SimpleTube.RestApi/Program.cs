@@ -2,6 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using FluentValidation;
 using SimpleTube.RestApi.Commands;
+using SimpleTube.RestApi.Exceptions;
 using SimpleTube.RestApi.Infrastructure;
 using SimpleTube.RestApi.Queries;
 using SimpleTube.RestApi.Rest;
@@ -32,8 +33,20 @@ builder.Services.Configure<JsonSerializerOptions>(opts =>
 {
     opts.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
 });
+builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler(opts =>
+{
+    opts.StatusCodeSelector = ex =>
+        ex switch
+        {
+            NotFoundException => StatusCodes.Status404NotFound,
+            ValidationException => StatusCodes.Status400BadRequest,
+            _ => StatusCodes.Status500InternalServerError,
+        };
+});
 
 var app = builder.Build();
+app.UseExceptionHandler();
 app.UseOutputCache();
 app.UseResponseCaching();
 app.UseResponseCompression();

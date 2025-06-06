@@ -21,7 +21,7 @@ internal sealed class SubscribeCommandHandler
                [ChannelName],
                [ChannelThumbnail]
         FROM [Subscriptions]
-        WHERE [ChannelHandle] = $channelHandle
+        WHERE [ChannelHandle] = @channelHandle
         """;
 
     public SubscribeCommandHandler(
@@ -92,7 +92,7 @@ internal sealed class SubscribeCommandHandler
         await connection.OpenAsync(cancellationToken);
         var sqlCommand = connection.CreateCommand();
         sqlCommand.CommandText = GetExistingSql;
-        sqlCommand.Parameters.AddWithValue("$channelHandle", command.ChannelHandle);
+        sqlCommand.Parameters.AddWithValue("@channelHandle", command.ChannelHandle);
 
         var reader = await sqlCommand.ExecuteReaderAsync(cancellationToken);
 

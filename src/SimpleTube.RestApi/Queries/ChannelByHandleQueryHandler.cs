@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
+using SimpleTube.RestApi.Exceptions;
 using SimpleTube.RestApi.Infrastructure.Database;
 using SimpleTube.Shared.Mediator;
 using SimpleTube.Shared.Queries;
@@ -54,6 +55,6 @@ internal sealed class ChannelByHandleQueryHandler
             return result;
         }
 
-        throw new Exception();
+        throw new NotFoundException();
     }
 }
