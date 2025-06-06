@@ -50,7 +50,7 @@ img.thumbnail {
     column-gap: calc(var(--spacing) * 2);
     justify-content: center;
     overflow: hidden;
-    padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+    padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3.5);
 }
 
 .channel-name {
