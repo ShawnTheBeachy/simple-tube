@@ -1,0 +1,95 @@
+﻿.container {
+    container-type: inline-size;
+}
+
+ul {
+    align-items: start;
+    display: grid;
+    grid-gap: calc(var(--spacing) * 6);
+    /*grid-template-columns: repeat(1, minmax(0, 1fr));*/
+    --count: round(down, calc(100vw / calc(var(--spacing) * 20)));
+    grid-template-columns: repeat(var(--count), minmax(0, 1fr));
+    padding: calc(var(--spacing) * 8);
+}
+
+/*@container (min-width: 42rem) {
+    ul {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@container (min-width: 80rem) {
+    ul {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        padding: calc(var(--spacing) * 8) calc(var(--spacing) * 12);
+    }
+}
+
+@container (min-width: 108rem) {
+    ul {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@container (min-width: 132rem) {
+    ul {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+}*/
+
+li {
+    background-color: #2b2b2b;
+    border-radius: var(--radius-xl);
+    box-shadow: 0 4px 6px -1px #181818, 0 2px 4px -2px #181818;
+    display: flex;
+    max-height: calc(var(--spacing) * 18);
+    overflow: hidden;
+    transition-duration: 500ms;
+    transition-property: transform;
+}
+
+li:hover {
+    transform: scale(105%);
+}
+
+li a {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+img.thumbnail {
+    aspect-ratio: 1 / 1;
+    height: 100%;
+    object-fit: cover;
+}
+
+.channel-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    column-gap: calc(var(--spacing) * 2);
+    justify-content: center;
+    overflow: hidden;
+    padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+}
+
+.channel-name {
+    color: var(--color-gray-50);
+    font-weight: var(--font-weight-medium);
+    line-height: calc(var(--spacing) * 7);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.channel-handle {
+    color: var(--color-gray-400);
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-normal);
+    line-height: calc(var(--spacing) * 6);
+}
+
+.relative {
+    position: relative;
+}

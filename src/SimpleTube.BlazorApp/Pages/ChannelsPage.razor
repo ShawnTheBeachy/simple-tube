@@ -1,0 +1,26 @@
+﻿@page "/channels"
+
+<PageTitle>Channels</PageTitle>
+
+<div class="container">
+    <ul>
+        @foreach (var channel in Channels)
+        {
+            <li>
+                <a href="@channel.Url">
+                    <img alt="Channel thumbnail"
+                         class="thumbnail"
+                         src="@channel.ChannelThumbnail" />
+                    <div class="channel-info">
+                        <h4 class="channel-name">
+                            @channel.ChannelName
+                        </h4>
+                        <span class="channel-handle">
+                            @@@channel.ChannelHandle
+                        </span>
+                    </div>
+                </a>
+            </li>
+        }
+    </ul>
+</div>

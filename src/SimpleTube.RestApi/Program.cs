@@ -44,9 +44,11 @@ builder.Services.AddExceptionHandler(opts =>
             _ => StatusCodes.Status500InternalServerError,
         };
 });
+builder.Services.AddCors();
 
 var app = builder.Build();
 app.UseExceptionHandler();
+app.UseCors(cors => cors.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 app.UseOutputCache();
 app.UseResponseCaching();
 app.UseResponseCompression();

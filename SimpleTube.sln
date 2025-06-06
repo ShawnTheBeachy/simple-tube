@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTube.Shared", "src\Si
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTube.Shared.Tests.Unit", "test\SimpleTube.Shared.Tests.Unit\SimpleTube.Shared.Tests.Unit.csproj", "{59B52640-63C6-444B-8F3E-937338A58F9A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTube.BlazorApp", "src\SimpleTube.BlazorApp\SimpleTube.BlazorApp.csproj", "{07E82698-245E-450A-A384-709F13BC9725}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,10 +30,15 @@ Global
 		{59B52640-63C6-444B-8F3E-937338A58F9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59B52640-63C6-444B-8F3E-937338A58F9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59B52640-63C6-444B-8F3E-937338A58F9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07E82698-245E-450A-A384-709F13BC9725}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07E82698-245E-450A-A384-709F13BC9725}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07E82698-245E-450A-A384-709F13BC9725}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07E82698-245E-450A-A384-709F13BC9725}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C0E635CD-466C-4DDC-A975-F87F03DEC38F} = {44FF1ED8-C47A-403B-8A96-B61D2C77DED6}
 		{AE80A674-9281-49B6-BDF8-92342078C439} = {44FF1ED8-C47A-403B-8A96-B61D2C77DED6}
 		{59B52640-63C6-444B-8F3E-937338A58F9A} = {74BE7BCC-555B-4DB9-B886-09D846492EED}
+		{07E82698-245E-450A-A384-709F13BC9725} = {44FF1ED8-C47A-403B-8A96-B61D2C77DED6}
 	EndGlobalSection
 EndGlobal

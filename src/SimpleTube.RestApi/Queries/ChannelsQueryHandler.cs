@@ -15,6 +15,7 @@ internal sealed class ChannelsQueryHandler : IQueryHandler<ChannelsQuery, Channe
                [ChannelName],
                [ChannelThumbnail]
         FROM [Subscriptions]
+        ORDER BY [ChannelName] COLLATE NOCASE
         """;
 
     public ChannelsQueryHandler(ConnectionStringProvider connectionStringProvider)
