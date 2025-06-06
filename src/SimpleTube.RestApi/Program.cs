@@ -22,6 +22,7 @@ builder
     );
 
 builder.Services.AddOpenApi();
+builder.Services.AddResponseCaching().AddResponseCompression().AddOutputCache();
 builder.Services.ConfigureHttpJsonOptions(options =>
 {
     options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
@@ -33,6 +34,10 @@ builder.Services.Configure<JsonSerializerOptions>(opts =>
 });
 
 var app = builder.Build();
+app.UseOutputCache();
+app.UseResponseCaching();
+app.UseResponseCompression();
+app.UseStaticFiles();
 app.MapAppEndpoints().MapOpenApi();
 app.Run();
 

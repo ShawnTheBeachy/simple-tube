@@ -15,6 +15,7 @@ internal static class AppEndpoints
                         new() { Name = "Channels", Url = "/channels" },
                     }
             )
+            .CacheOutput()
             .WithName("Get bookmarks")
             .WithTags();
         builder.MapChannelEndpoints();
