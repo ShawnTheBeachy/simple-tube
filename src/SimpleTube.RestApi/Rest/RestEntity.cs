@@ -1,8 +1,15 @@
-﻿namespace SimpleTube.RestApi.Rest;
+﻿using System.Text.Json.Serialization;
 
-internal sealed class RestEntity<T>
-    where T : class
+namespace SimpleTube.RestApi.Rest;
+
+internal abstract record RestEntity
 {
-    public required T Entity { get; init; }
+    [JsonPropertyName("$entity#createdAt")]
+    public DateTimeOffset? CreatedAt { get; init; }
+
+    [JsonPropertyName("$entity#modifiedAt")]
+    public DateTimeOffset? LastModifiedAt { get; init; }
+
+    [JsonPropertyName("$entity#url")]
     public required string Url { get; init; }
 }

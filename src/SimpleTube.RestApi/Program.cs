@@ -21,9 +21,10 @@ builder
         includeInternalTypes: true
     );
 
+builder.Services.AddOpenApi();
 builder.Services.ConfigureHttpJsonOptions(options =>
 {
-    options.SerializerOptions.AddRestApiJsonConverters();
+    options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
     options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
 });
 builder.Services.Configure<JsonSerializerOptions>(opts =>
@@ -32,10 +33,11 @@ builder.Services.Configure<JsonSerializerOptions>(opts =>
 });
 
 var app = builder.Build();
-app.MapAppEndpoints();
+app.MapAppEndpoints().MapOpenApi();
 app.Run();
 
-[JsonSerializable(typeof(RestEntity<ChannelRestEntity>))]
-[JsonSerializable(typeof(RestEntity<ChannelRestEntity>[]))]
+[JsonSerializable(typeof(AppEndpoints.Bookmark[]))]
+[JsonSerializable(typeof(Channel))]
+[JsonSerializable(typeof(Channel[]))]
 [JsonSerializable(typeof(SubscribeCommand))]
 internal sealed partial class AppJsonSerializerContext : JsonSerializerContext;
