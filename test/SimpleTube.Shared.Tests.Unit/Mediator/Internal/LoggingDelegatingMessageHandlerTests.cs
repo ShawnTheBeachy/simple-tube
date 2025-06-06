@@ -13,8 +13,7 @@ public sealed class LoggingDelegatingMessageHandlerTests
     )
     {
         // Arrange.
-        var logger =
-            new TestableLogger<LoggingDelegatingMessageHandler<Command, int>>();
+        var logger = new TestableLogger<LoggingDelegatingMessageHandler<Command, int>>();
 
         // Act.
         var sut = new LoggingDelegatingMessageHandler<Command, int>(logger)

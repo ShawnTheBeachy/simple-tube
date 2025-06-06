@@ -21,12 +21,18 @@ internal sealed class LoggingDelegatingMessageHandler<TMessage, TResult>
         CancellationToken cancellationToken
     )
     {
-        _logger.Executing(typeof(TMessage).Name, JsonSerializer.Serialize(message));
+        _logger.Executing(
+            typeof(TMessage).Name,
+            JsonSerializer.Serialize(message, MediatorJsonSerializerContext.Default.Options)
+        );
 
         try
         {
             var result = await base.Invoke(message, cancellationToken);
-            _logger.Returned(typeof(TResult).Name, JsonSerializer.Serialize(result));
+            _logger.Returned(
+                typeof(TResult).Name,
+                JsonSerializer.Serialize(result, MediatorJsonSerializerContext.Default.Options)
+            );
             return result;
         }
         catch (Exception exception)
