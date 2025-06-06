@@ -5,8 +5,7 @@ using SimpleTube.Shared.Queries;
 
 namespace SimpleTube.RestApi.Queries;
 
-internal sealed class SubscriptionsQueryHandler
-    : IQueryHandler<SubscriptionsQuery, SubscriptionsQuery.Result>
+internal sealed class ChannelsQueryHandler : IQueryHandler<ChannelsQuery, ChannelsQuery.Result>
 {
     private readonly ConnectionStringProvider _connectionStringProvider;
 
@@ -18,13 +17,13 @@ internal sealed class SubscriptionsQueryHandler
         FROM [Subscriptions]
         """;
 
-    public SubscriptionsQueryHandler(ConnectionStringProvider connectionStringProvider)
+    public ChannelsQueryHandler(ConnectionStringProvider connectionStringProvider)
     {
         _connectionStringProvider = connectionStringProvider;
     }
 
-    public async ValueTask<SubscriptionsQuery.Result> Execute(
-        SubscriptionsQuery query,
+    public async ValueTask<ChannelsQuery.Result> Execute(
+        ChannelsQuery query,
         CancellationToken cancellationToken
     )
     {
@@ -36,12 +35,12 @@ internal sealed class SubscriptionsQueryHandler
         command.CommandText = Sql;
         var reader = await command.ExecuteReaderAsync(cancellationToken);
 
-        var subscriptions = new List<SubscriptionsQuery.Result.Subscription>();
+        var channels = new List<ChannelsQuery.Result.Channel>();
 
         while (await reader.ReadAsync(cancellationToken))
         {
-            subscriptions.Add(
-                new SubscriptionsQuery.Result.Subscription
+            channels.Add(
+                new ChannelsQuery.Result.Channel
                 {
                     ChannelHandle = reader.GetString(0),
                     ChannelId = reader.GetString(1),
@@ -51,6 +50,6 @@ internal sealed class SubscriptionsQueryHandler
             );
         }
 
-        return new SubscriptionsQuery.Result { Subscriptions = subscriptions.ToArray() };
+        return new ChannelsQuery.Result { Channels = channels.ToArray() };
     }
 }

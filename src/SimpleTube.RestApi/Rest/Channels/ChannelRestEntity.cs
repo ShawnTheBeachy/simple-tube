@@ -1,6 +1,6 @@
-﻿namespace SimpleTube.RestApi.Rest.Subscriptions;
+﻿namespace SimpleTube.RestApi.Rest.Channels;
 
-internal sealed record SubscriptionRestEntity
+internal sealed record ChannelRestEntity
 {
     public string? ChannelHandle { get; init; }
     public string? ChannelId { get; init; }

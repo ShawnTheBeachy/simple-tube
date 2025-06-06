@@ -25,7 +25,4 @@
   <ItemGroup>
     <ProjectReference Include="..\SimpleTube.Shared\SimpleTube.Shared.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Subscriptions\" />
-  </ItemGroup>
 </Project>

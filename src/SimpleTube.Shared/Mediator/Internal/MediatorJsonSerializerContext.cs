@@ -9,14 +9,14 @@ namespace SimpleTube.Shared.Mediator.Internal;
     typeof(SubscribeCommand.Result),
     TypeInfoPropertyName = $"{nameof(Commands.SubscribeCommand)}{nameof(Commands.SubscribeCommand.Result)}"
 )]
-[JsonSerializable(typeof(SubscriptionByChannelHandleQuery))]
+[JsonSerializable(typeof(ChannelByHandleQuery))]
 [JsonSerializable(
-    typeof(SubscriptionByChannelHandleQuery.Result),
-    TypeInfoPropertyName = $"{nameof(Queries.SubscriptionByChannelHandleQuery)}{nameof(Queries.SubscriptionByChannelHandleQuery.Result)}"
+    typeof(ChannelByHandleQuery.Result),
+    TypeInfoPropertyName = $"{nameof(Queries.ChannelByHandleQuery)}{nameof(Queries.ChannelByHandleQuery.Result)}"
 )]
-[JsonSerializable(typeof(SubscriptionsQuery))]
+[JsonSerializable(typeof(ChannelsQuery))]
 [JsonSerializable(
-    typeof(SubscriptionsQuery.Result),
-    TypeInfoPropertyName = $"{nameof(Queries.SubscriptionsQuery)}{nameof(Queries.SubscriptionsQuery.Result)}"
+    typeof(ChannelsQuery.Result),
+    TypeInfoPropertyName = $"{nameof(Queries.ChannelsQuery)}{nameof(Queries.ChannelsQuery.Result)}"
 )]
 internal sealed partial class MediatorJsonSerializerContext : JsonSerializerContext;

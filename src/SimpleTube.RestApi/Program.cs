@@ -5,7 +5,7 @@ using SimpleTube.RestApi.Commands;
 using SimpleTube.RestApi.Infrastructure;
 using SimpleTube.RestApi.Queries;
 using SimpleTube.RestApi.Rest;
-using SimpleTube.RestApi.Rest.Subscriptions;
+using SimpleTube.RestApi.Rest.Channels;
 using SimpleTube.Shared.Commands;
 using SimpleTube.Shared.Mediator;
 
@@ -35,7 +35,7 @@ var app = builder.Build();
 app.MapAppEndpoints();
 app.Run();
 
-[JsonSerializable(typeof(RestEntity<SubscriptionRestEntity>))]
-[JsonSerializable(typeof(RestEntity<SubscriptionRestEntity>[]))]
+[JsonSerializable(typeof(RestEntity<ChannelRestEntity>))]
+[JsonSerializable(typeof(RestEntity<ChannelRestEntity>[]))]
 [JsonSerializable(typeof(SubscribeCommand))]
 internal sealed partial class AppJsonSerializerContext : JsonSerializerContext;

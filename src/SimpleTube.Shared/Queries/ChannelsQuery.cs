@@ -3,13 +3,13 @@ using SimpleTube.Shared.Mediator;
 
 namespace SimpleTube.Shared.Queries;
 
-public sealed record SubscriptionsQuery : IQuery<SubscriptionsQuery.Result>
+public sealed record ChannelsQuery : IQuery<ChannelsQuery.Result>
 {
     public sealed record Result
     {
-        public required IReadOnlyList<Subscription> Subscriptions { get; init; }
+        public required IReadOnlyList<Channel> Channels { get; init; }
 
-        public sealed record Subscription
+        public sealed record Channel
         {
             public required string ChannelHandle { get; init; }
             public required string ChannelId { get; init; }
@@ -18,7 +18,7 @@ public sealed record SubscriptionsQuery : IQuery<SubscriptionsQuery.Result>
         }
     }
 
-    public sealed class Validator : AbstractValidator<SubscriptionsQuery>
+    public sealed class Validator : AbstractValidator<ChannelsQuery>
     {
         public Validator() { }
     }

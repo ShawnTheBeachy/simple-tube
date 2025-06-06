@@ -5,8 +5,8 @@ using SimpleTube.Shared.Queries;
 
 namespace SimpleTube.RestApi.Queries;
 
-internal sealed class SubscriptionByChannelHandleQueryHandler
-    : IQueryHandler<SubscriptionByChannelHandleQuery, SubscriptionByChannelHandleQuery.Result>
+internal sealed class ChannelByHandleQueryHandler
+    : IQueryHandler<ChannelByHandleQuery, ChannelByHandleQuery.Result>
 {
     private readonly ConnectionStringProvider _connectionStringProvider;
 
@@ -21,15 +21,13 @@ internal sealed class SubscriptionByChannelHandleQueryHandler
         WHERE [ChannelHandle] = @channelHandle
         """;
 
-    public SubscriptionByChannelHandleQueryHandler(
-        ConnectionStringProvider connectionStringProvider
-    )
+    public ChannelByHandleQueryHandler(ConnectionStringProvider connectionStringProvider)
     {
         _connectionStringProvider = connectionStringProvider;
     }
 
-    public async ValueTask<SubscriptionByChannelHandleQuery.Result> Execute(
-        SubscriptionByChannelHandleQuery query,
+    public async ValueTask<ChannelByHandleQuery.Result> Execute(
+        ChannelByHandleQuery query,
         CancellationToken cancellationToken
     )
     {
@@ -44,7 +42,7 @@ internal sealed class SubscriptionByChannelHandleQueryHandler
 
         while (await reader.ReadAsync(cancellationToken))
         {
-            var result = new SubscriptionByChannelHandleQuery.Result
+            var result = new ChannelByHandleQuery.Result
             {
                 ChannelHandle = reader.GetString(0),
                 ChannelId = reader.GetString(1),

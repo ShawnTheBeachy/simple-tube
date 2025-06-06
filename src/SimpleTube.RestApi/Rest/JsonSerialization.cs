@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using SimpleTube.RestApi.Rest.Subscriptions;
+using SimpleTube.RestApi.Rest.Channels;
 
 namespace SimpleTube.RestApi.Rest;
 
@@ -8,8 +8,8 @@ internal static class JsonSerialization
 {
     public static void AddRestApiJsonConverters(this JsonSerializerOptions jsonOptions)
     {
-        jsonOptions.Converters.Add(new RestEntityArrayConverter<SubscriptionRestEntity>());
-        jsonOptions.Converters.Add(new RestEntityConverter<SubscriptionRestEntity>());
+        jsonOptions.Converters.Add(new RestEntityArrayConverter<ChannelRestEntity>());
+        jsonOptions.Converters.Add(new RestEntityConverter<ChannelRestEntity>());
     }
 
     private sealed class RestEntityConverter<T> : JsonConverter<RestEntity<T>>

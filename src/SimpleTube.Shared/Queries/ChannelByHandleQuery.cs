@@ -3,8 +3,7 @@ using SimpleTube.Shared.Mediator;
 
 namespace SimpleTube.Shared.Queries;
 
-public sealed record SubscriptionByChannelHandleQuery
-    : IQuery<SubscriptionByChannelHandleQuery.Result>
+public sealed record ChannelByHandleQuery : IQuery<ChannelByHandleQuery.Result>
 {
     public required string ChannelHandle { get; init; }
 
@@ -18,7 +17,7 @@ public sealed record SubscriptionByChannelHandleQuery
         public required DateTimeOffset LastModifiedAt { get; init; }
     }
 
-    public sealed class Validator : AbstractValidator<SubscriptionByChannelHandleQuery>
+    public sealed class Validator : AbstractValidator<ChannelByHandleQuery>
     {
         public Validator()
         {

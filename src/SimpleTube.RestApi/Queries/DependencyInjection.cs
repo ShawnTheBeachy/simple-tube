@@ -8,14 +8,11 @@ internal static class DependencyInjection
     public static IServiceCollection AddQueries(this IServiceCollection services) =>
         services
             .AddTransient<
-                IQueryHandler<
-                    SubscriptionByChannelHandleQuery,
-                    SubscriptionByChannelHandleQuery.Result
-                >,
-                SubscriptionByChannelHandleQueryHandler
+                IQueryHandler<ChannelByHandleQuery, ChannelByHandleQuery.Result>,
+                ChannelByHandleQueryHandler
             >()
             .AddTransient<
-                IQueryHandler<SubscriptionsQuery, SubscriptionsQuery.Result>,
-                SubscriptionsQueryHandler
+                IQueryHandler<ChannelsQuery, ChannelsQuery.Result>,
+                ChannelsQueryHandler
             >();
 }
