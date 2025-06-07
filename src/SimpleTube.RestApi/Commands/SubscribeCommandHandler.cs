@@ -63,7 +63,8 @@ internal sealed class SubscribeCommandHandler
             Handle = command.ChannelHandle,
             Id = channelInfo.Id,
             Name = channelInfo.Snippet.Title,
-            Thumbnail = channelInfo.Snippet.Thumbnails.High.Url,
+            Thumbnail =
+                channelInfo.Snippet.Thumbnails.Max?.Url ?? channelInfo.Snippet.Thumbnails.High.Url,
         };
         _dbContext.Channels.Add(channel);
         await _dbContext.SaveChangesAsync(cancellationToken);

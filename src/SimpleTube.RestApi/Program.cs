@@ -8,6 +8,7 @@ using SimpleTube.RestApi.Infrastructure.Mediator;
 using SimpleTube.RestApi.Queries;
 using SimpleTube.RestApi.Rest;
 using SimpleTube.RestApi.Rest.Channels;
+using SimpleTube.RestApi.Rest.Videos;
 using SlimMessageBus.Host;
 using SlimMessageBus.Host.Memory;
 
@@ -66,4 +67,6 @@ app.Run();
 [JsonSerializable(typeof(Channel))]
 [JsonSerializable(typeof(Channel[]))]
 [JsonSerializable(typeof(SubscribeCommand))]
+[JsonSerializable(typeof(Video))]
+[JsonSerializable(typeof(Video[]))]
 internal sealed partial class AppJsonSerializerContext : JsonSerializerContext;

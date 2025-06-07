@@ -22,3 +22,8 @@ Accept: application/json
 
 GET {{BaseUrl}}/channels/PoorBishopHooper
 Accept: application/json
+
+### Get channel videos
+
+GET {{BaseUrl}}/channels/PoorBishopHooper/videos
+Accept: application/json

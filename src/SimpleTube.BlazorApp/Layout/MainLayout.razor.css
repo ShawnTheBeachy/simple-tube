@@ -1,12 +1,17 @@
 .page {
-    position: relative;
     display: flex;
     flex-direction: column;
+    height: 100%;
+    position: relative;
 }
 
 main {
     background-color: #1d1d1d;
     flex: 1;
+}
+
+article {
+    height: 100%;
 }
 
 @media (min-width: 641px) {

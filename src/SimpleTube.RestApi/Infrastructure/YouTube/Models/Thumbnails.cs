@@ -6,4 +6,7 @@ internal sealed record Thumbnails
 {
     [JsonPropertyName("high")]
     public required Thumbnail High { get; init; }
+
+    [JsonPropertyName("maxres")]
+    public Thumbnail? Max { get; init; }
 }

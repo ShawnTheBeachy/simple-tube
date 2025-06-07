@@ -84,7 +84,10 @@ internal sealed class ScanChannelTask : ITask
             command.Parameters.AddWithValue("description", result.Snippet.Description);
             command.Parameters.AddWithValue("id", result.Id.VideoId);
             command.Parameters.AddWithValue("publishedAt", result.Snippet.PublishedAt);
-            command.Parameters.AddWithValue("thumbnail", result.Snippet.Thumbnails.High.Url);
+            command.Parameters.AddWithValue(
+                "thumbnail",
+                result.Snippet.Thumbnails.Max?.Url ?? result.Snippet.Thumbnails.High.Url
+            );
             command.Parameters.AddWithValue("title", result.Snippet.Title);
             await command.ExecuteNonQueryAsync(cancellationToken);
         }

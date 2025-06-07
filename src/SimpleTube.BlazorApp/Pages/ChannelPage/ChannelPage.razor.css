@@ -1,4 +1,11 @@
-﻿.header {
+﻿.page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.header {
     display: flex;
     position: relative;
 }

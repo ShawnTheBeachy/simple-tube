@@ -2,6 +2,7 @@
 using SimpleTube.RestApi.Commands;
 using SimpleTube.RestApi.Infrastructure.Mediator;
 using SimpleTube.RestApi.Queries;
+using SimpleTube.RestApi.Rest.Videos;
 
 namespace SimpleTube.RestApi.Rest.Channels;
 
@@ -67,6 +68,34 @@ internal static class ChannelEndpoints
             .CacheOutput()
             .WithName("Get channel by handle")
             .WithTags("channels");
+        group
+            .MapGet(
+                "/{channelHandle}/videos",
+                async (
+                    string channelHandle,
+                    IMediator mediator,
+                    CancellationToken cancellationToken
+                ) =>
+                {
+                    var result = await mediator.Query<
+                        ChannelVideosQuery,
+                        ChannelVideosQuery.Result
+                    >(new ChannelVideosQuery { ChannelHandle = channelHandle }, cancellationToken);
+                    return result
+                        .Videos.Select(video => new Video
+                        {
+                            Id = video.Id,
+                            PublishedAt = video.PublishedAt,
+                            Thumbnail = video.Thumbnail,
+                            Title = video.Title,
+                            Url = $"/videos/{video.Id}",
+                        })
+                        .ToArray();
+                }
+            )
+            .CacheOutput()
+            .WithName("Get channel videos")
+            .WithTags("channels", "videos");
         group
             .MapPut(
                 "/",

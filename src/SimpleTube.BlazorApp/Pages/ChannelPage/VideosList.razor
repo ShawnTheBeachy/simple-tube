@@ -1,0 +1,23 @@
+﻿@using System.Net
+
+<div class="container">
+    <ul>
+        @foreach (var video in Videos)
+        {
+            <li>
+                <a href="@video.Url">
+                    <div class="video-thumbnail"
+                         style="background:url('@video.Thumbnail') center/cover no-repeat;"></div>
+                    <div class="video-info">
+                        <h4 class="video-title">
+                            @(WebUtility.HtmlDecode(video.Title))
+                        </h4>
+                        <span class="video-date">
+                            @video.PublishedAt.ToShortDateString()
+                        </span>
+                    </div>
+                </a>
+            </li>
+        }
+    </ul>
+</div>
