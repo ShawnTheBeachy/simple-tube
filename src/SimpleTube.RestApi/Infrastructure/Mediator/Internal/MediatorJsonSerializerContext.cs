@@ -1,14 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using SimpleTube.Shared.Commands;
-using SimpleTube.Shared.Queries;
+using SimpleTube.RestApi.Commands;
+using SimpleTube.RestApi.Queries;
 
-namespace SimpleTube.Shared.Mediator.Internal;
+namespace SimpleTube.RestApi.Infrastructure.Mediator.Internal;
 
-[JsonSerializable(typeof(SubscribeCommand))]
-[JsonSerializable(
-    typeof(SubscribeCommand.Result),
-    TypeInfoPropertyName = $"{nameof(Commands.SubscribeCommand)}{nameof(Commands.SubscribeCommand.Result)}"
-)]
 [JsonSerializable(typeof(ChannelByHandleQuery))]
 [JsonSerializable(
     typeof(ChannelByHandleQuery.Result),
@@ -18,6 +13,16 @@ namespace SimpleTube.Shared.Mediator.Internal;
 [JsonSerializable(
     typeof(ChannelsQuery.Result),
     TypeInfoPropertyName = $"{nameof(Queries.ChannelsQuery)}{nameof(Queries.ChannelsQuery.Result)}"
+)]
+[JsonSerializable(typeof(ScanChannelCommand))]
+[JsonSerializable(
+    typeof(ScanChannelCommand.Result),
+    TypeInfoPropertyName = $"{nameof(Commands.ScanChannelCommand)}{nameof(Commands.ScanChannelCommand.Result)}"
+)]
+[JsonSerializable(typeof(SubscribeCommand))]
+[JsonSerializable(
+    typeof(SubscribeCommand.Result),
+    TypeInfoPropertyName = $"{nameof(Commands.SubscribeCommand)}{nameof(Commands.SubscribeCommand.Result)}"
 )]
 [JsonSerializable(typeof(UnsubscribeCommand))]
 [JsonSerializable(

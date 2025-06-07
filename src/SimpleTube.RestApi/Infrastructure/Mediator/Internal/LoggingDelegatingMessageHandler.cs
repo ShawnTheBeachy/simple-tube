@@ -1,7 +1,6 @@
 using System.Text.Json;
-using Microsoft.Extensions.Logging;
 
-namespace SimpleTube.Shared.Mediator.Internal;
+namespace SimpleTube.RestApi.Infrastructure.Mediator.Internal;
 
 internal sealed class LoggingDelegatingMessageHandler<TMessage, TResult>
     : DelegatingMessageHandler<TMessage, TResult>
@@ -23,7 +22,10 @@ internal sealed class LoggingDelegatingMessageHandler<TMessage, TResult>
     {
         _logger.Executing(
             typeof(TMessage).Name,
-            JsonSerializer.Serialize(message, MediatorJsonSerializerContext.Default.Options)
+            JsonSerializer.Serialize(
+                message,
+                MediatorJsonSerializerContext.Default.GetTypeInfo(typeof(TMessage))!
+            )
         );
 
         try
@@ -31,7 +33,10 @@ internal sealed class LoggingDelegatingMessageHandler<TMessage, TResult>
             var result = await base.Invoke(message, cancellationToken);
             _logger.Returned(
                 typeof(TResult).Name,
-                JsonSerializer.Serialize(result, MediatorJsonSerializerContext.Default.Options)
+                JsonSerializer.Serialize(
+                    result,
+                    MediatorJsonSerializerContext.Default.GetTypeInfo(typeof(TResult))!
+                )
             );
             return result;
         }

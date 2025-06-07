@@ -23,7 +23,7 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
         {
             var runtimeEntityType = model.AddEntityType(
                 "SimpleTube.RestApi.Infrastructure.Database.Entities.SubscriptionEntity",
-                typeof(SubscriptionEntity),
+                typeof(ChannelEntity),
                 baseEntityType,
                 propertyCount: 6,
                 keyCount: 1);
@@ -31,21 +31,21 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
             var channelId = runtimeEntityType.AddProperty(
                 "ChannelId",
                 typeof(string),
-                propertyInfo: typeof(SubscriptionEntity).GetProperty("ChannelId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(SubscriptionEntity).GetField("<ChannelId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(ChannelEntity).GetProperty("ChannelId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ChannelEntity).GetField("<ChannelId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 afterSaveBehavior: PropertySaveBehavior.Throw);
             channelId.SetGetter(
-                string (SubscriptionEntity entity) => SubscriptionEntityUnsafeAccessors.ChannelId(entity),
-                bool (SubscriptionEntity entity) => SubscriptionEntityUnsafeAccessors.ChannelId(entity) == null,
-                string (SubscriptionEntity instance) => SubscriptionEntityUnsafeAccessors.ChannelId(instance),
-                bool (SubscriptionEntity instance) => SubscriptionEntityUnsafeAccessors.ChannelId(instance) == null);
+                string (ChannelEntity entity) => SubscriptionEntityUnsafeAccessors.ChannelId(entity),
+                bool (ChannelEntity entity) => SubscriptionEntityUnsafeAccessors.ChannelId(entity) == null,
+                string (ChannelEntity instance) => SubscriptionEntityUnsafeAccessors.ChannelId(instance),
+                bool (ChannelEntity instance) => SubscriptionEntityUnsafeAccessors.ChannelId(instance) == null);
             channelId.SetSetter(
-                (SubscriptionEntity entity, string value) => SubscriptionEntityUnsafeAccessors.ChannelId(entity) = value);
+                (ChannelEntity entity, string value) => SubscriptionEntityUnsafeAccessors.ChannelId(entity) = value);
             channelId.SetMaterializationSetter(
-                (SubscriptionEntity entity, string value) => SubscriptionEntityUnsafeAccessors.ChannelId(entity) = value);
+                (ChannelEntity entity, string value) => SubscriptionEntityUnsafeAccessors.ChannelId(entity) = value);
             channelId.SetAccessors(
-                string (InternalEntityEntry entry) => SubscriptionEntityUnsafeAccessors.ChannelId(((SubscriptionEntity)(entry.Entity))),
-                string (InternalEntityEntry entry) => SubscriptionEntityUnsafeAccessors.ChannelId(((SubscriptionEntity)(entry.Entity))),
+                string (InternalEntityEntry entry) => SubscriptionEntityUnsafeAccessors.ChannelId(((ChannelEntity)(entry.Entity))),
+                string (InternalEntityEntry entry) => SubscriptionEntityUnsafeAccessors.ChannelId(((ChannelEntity)(entry.Entity))),
                 string (InternalEntityEntry entry) => entry.ReadOriginalValue<string>(channelId, 0),
                 string (InternalEntityEntry entry) => entry.ReadRelationshipSnapshotValue<string>(channelId, 0),
                 object (ValueBuffer valueBuffer) => valueBuffer[0]);
@@ -61,20 +61,20 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
             var channelHandle = runtimeEntityType.AddProperty(
                 "ChannelHandle",
                 typeof(string),
-                propertyInfo: typeof(SubscriptionEntity).GetProperty("ChannelHandle", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(SubscriptionEntity).GetField("<ChannelHandle>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                propertyInfo: typeof(ChannelEntity).GetProperty("ChannelHandle", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ChannelEntity).GetField("<ChannelHandle>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
             channelHandle.SetGetter(
-                string (SubscriptionEntity entity) => SubscriptionEntityUnsafeAccessors.ChannelHandle(entity),
-                bool (SubscriptionEntity entity) => SubscriptionEntityUnsafeAccessors.ChannelHandle(entity) == null,
-                string (SubscriptionEntity instance) => SubscriptionEntityUnsafeAccessors.ChannelHandle(instance),
-                bool (SubscriptionEntity instance) => SubscriptionEntityUnsafeAccessors.ChannelHandle(instance) == null);
+                string (ChannelEntity entity) => SubscriptionEntityUnsafeAccessors.ChannelHandle(entity),
+                bool (ChannelEntity entity) => SubscriptionEntityUnsafeAccessors.ChannelHandle(entity) == null,
+                string (ChannelEntity instance) => SubscriptionEntityUnsafeAccessors.ChannelHandle(instance),
+                bool (ChannelEntity instance) => SubscriptionEntityUnsafeAccessors.ChannelHandle(instance) == null);
             channelHandle.SetSetter(
-                (SubscriptionEntity entity, string value) => SubscriptionEntityUnsafeAccessors.ChannelHandle(entity) = value);
+                (ChannelEntity entity, string value) => SubscriptionEntityUnsafeAccessors.ChannelHandle(entity) = value);
             channelHandle.SetMaterializationSetter(
-                (SubscriptionEntity entity, string value) => SubscriptionEntityUnsafeAccessors.ChannelHandle(entity) = value);
+                (ChannelEntity entity, string value) => SubscriptionEntityUnsafeAccessors.ChannelHandle(entity) = value);
             channelHandle.SetAccessors(
-                string (InternalEntityEntry entry) => SubscriptionEntityUnsafeAccessors.ChannelHandle(((SubscriptionEntity)(entry.Entity))),
-                string (InternalEntityEntry entry) => SubscriptionEntityUnsafeAccessors.ChannelHandle(((SubscriptionEntity)(entry.Entity))),
+                string (InternalEntityEntry entry) => SubscriptionEntityUnsafeAccessors.ChannelHandle(((ChannelEntity)(entry.Entity))),
+                string (InternalEntityEntry entry) => SubscriptionEntityUnsafeAccessors.ChannelHandle(((ChannelEntity)(entry.Entity))),
                 string (InternalEntityEntry entry) => entry.ReadOriginalValue<string>(channelHandle, 1),
                 string (InternalEntityEntry entry) => entry.GetCurrentValue<string>(channelHandle),
                 object (ValueBuffer valueBuffer) => valueBuffer[1]);
@@ -89,20 +89,20 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
             var channelName = runtimeEntityType.AddProperty(
                 "ChannelName",
                 typeof(string),
-                propertyInfo: typeof(SubscriptionEntity).GetProperty("ChannelName", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(SubscriptionEntity).GetField("<ChannelName>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                propertyInfo: typeof(ChannelEntity).GetProperty("ChannelName", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ChannelEntity).GetField("<ChannelName>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
             channelName.SetGetter(
-                string (SubscriptionEntity entity) => SubscriptionEntityUnsafeAccessors.ChannelName(entity),
-                bool (SubscriptionEntity entity) => SubscriptionEntityUnsafeAccessors.ChannelName(entity) == null,
-                string (SubscriptionEntity instance) => SubscriptionEntityUnsafeAccessors.ChannelName(instance),
-                bool (SubscriptionEntity instance) => SubscriptionEntityUnsafeAccessors.ChannelName(instance) == null);
+                string (ChannelEntity entity) => SubscriptionEntityUnsafeAccessors.ChannelName(entity),
+                bool (ChannelEntity entity) => SubscriptionEntityUnsafeAccessors.ChannelName(entity) == null,
+                string (ChannelEntity instance) => SubscriptionEntityUnsafeAccessors.ChannelName(instance),
+                bool (ChannelEntity instance) => SubscriptionEntityUnsafeAccessors.ChannelName(instance) == null);
             channelName.SetSetter(
-                (SubscriptionEntity entity, string value) => SubscriptionEntityUnsafeAccessors.ChannelName(entity) = value);
+                (ChannelEntity entity, string value) => SubscriptionEntityUnsafeAccessors.ChannelName(entity) = value);
             channelName.SetMaterializationSetter(
-                (SubscriptionEntity entity, string value) => SubscriptionEntityUnsafeAccessors.ChannelName(entity) = value);
+                (ChannelEntity entity, string value) => SubscriptionEntityUnsafeAccessors.ChannelName(entity) = value);
             channelName.SetAccessors(
-                string (InternalEntityEntry entry) => SubscriptionEntityUnsafeAccessors.ChannelName(((SubscriptionEntity)(entry.Entity))),
-                string (InternalEntityEntry entry) => SubscriptionEntityUnsafeAccessors.ChannelName(((SubscriptionEntity)(entry.Entity))),
+                string (InternalEntityEntry entry) => SubscriptionEntityUnsafeAccessors.ChannelName(((ChannelEntity)(entry.Entity))),
+                string (InternalEntityEntry entry) => SubscriptionEntityUnsafeAccessors.ChannelName(((ChannelEntity)(entry.Entity))),
                 string (InternalEntityEntry entry) => entry.ReadOriginalValue<string>(channelName, 2),
                 string (InternalEntityEntry entry) => entry.GetCurrentValue<string>(channelName),
                 object (ValueBuffer valueBuffer) => valueBuffer[2]);
@@ -117,20 +117,20 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
             var channelThumbnail = runtimeEntityType.AddProperty(
                 "ChannelThumbnail",
                 typeof(string),
-                propertyInfo: typeof(SubscriptionEntity).GetProperty("ChannelThumbnail", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(SubscriptionEntity).GetField("<ChannelThumbnail>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                propertyInfo: typeof(ChannelEntity).GetProperty("ChannelThumbnail", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ChannelEntity).GetField("<ChannelThumbnail>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
             channelThumbnail.SetGetter(
-                string (SubscriptionEntity entity) => SubscriptionEntityUnsafeAccessors.ChannelThumbnail(entity),
-                bool (SubscriptionEntity entity) => SubscriptionEntityUnsafeAccessors.ChannelThumbnail(entity) == null,
-                string (SubscriptionEntity instance) => SubscriptionEntityUnsafeAccessors.ChannelThumbnail(instance),
-                bool (SubscriptionEntity instance) => SubscriptionEntityUnsafeAccessors.ChannelThumbnail(instance) == null);
+                string (ChannelEntity entity) => SubscriptionEntityUnsafeAccessors.ChannelThumbnail(entity),
+                bool (ChannelEntity entity) => SubscriptionEntityUnsafeAccessors.ChannelThumbnail(entity) == null,
+                string (ChannelEntity instance) => SubscriptionEntityUnsafeAccessors.ChannelThumbnail(instance),
+                bool (ChannelEntity instance) => SubscriptionEntityUnsafeAccessors.ChannelThumbnail(instance) == null);
             channelThumbnail.SetSetter(
-                (SubscriptionEntity entity, string value) => SubscriptionEntityUnsafeAccessors.ChannelThumbnail(entity) = value);
+                (ChannelEntity entity, string value) => SubscriptionEntityUnsafeAccessors.ChannelThumbnail(entity) = value);
             channelThumbnail.SetMaterializationSetter(
-                (SubscriptionEntity entity, string value) => SubscriptionEntityUnsafeAccessors.ChannelThumbnail(entity) = value);
+                (ChannelEntity entity, string value) => SubscriptionEntityUnsafeAccessors.ChannelThumbnail(entity) = value);
             channelThumbnail.SetAccessors(
-                string (InternalEntityEntry entry) => SubscriptionEntityUnsafeAccessors.ChannelThumbnail(((SubscriptionEntity)(entry.Entity))),
-                string (InternalEntityEntry entry) => SubscriptionEntityUnsafeAccessors.ChannelThumbnail(((SubscriptionEntity)(entry.Entity))),
+                string (InternalEntityEntry entry) => SubscriptionEntityUnsafeAccessors.ChannelThumbnail(((ChannelEntity)(entry.Entity))),
+                string (InternalEntityEntry entry) => SubscriptionEntityUnsafeAccessors.ChannelThumbnail(((ChannelEntity)(entry.Entity))),
                 string (InternalEntityEntry entry) => entry.ReadOriginalValue<string>(channelThumbnail, 3),
                 string (InternalEntityEntry entry) => entry.GetCurrentValue<string>(channelThumbnail),
                 object (ValueBuffer valueBuffer) => valueBuffer[3]);
@@ -149,17 +149,17 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
                 fieldInfo: typeof(AuditableEntity).GetField("<CreatedAt>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 sentinel: new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)));
             createdAt.SetGetter(
-                DateTimeOffset (SubscriptionEntity entity) => AuditableEntityUnsafeAccessors.CreatedAt(entity),
-                bool (SubscriptionEntity entity) => AuditableEntityUnsafeAccessors.CreatedAt(entity).EqualsExact(default(DateTimeOffset)),
-                DateTimeOffset (SubscriptionEntity instance) => AuditableEntityUnsafeAccessors.CreatedAt(instance),
-                bool (SubscriptionEntity instance) => AuditableEntityUnsafeAccessors.CreatedAt(instance).EqualsExact(default(DateTimeOffset)));
+                DateTimeOffset (ChannelEntity entity) => AuditableEntityUnsafeAccessors.CreatedAt(entity),
+                bool (ChannelEntity entity) => AuditableEntityUnsafeAccessors.CreatedAt(entity).EqualsExact(default(DateTimeOffset)),
+                DateTimeOffset (ChannelEntity instance) => AuditableEntityUnsafeAccessors.CreatedAt(instance),
+                bool (ChannelEntity instance) => AuditableEntityUnsafeAccessors.CreatedAt(instance).EqualsExact(default(DateTimeOffset)));
             createdAt.SetSetter(
-                (SubscriptionEntity entity, DateTimeOffset value) => AuditableEntityUnsafeAccessors.CreatedAt(entity) = value);
+                (ChannelEntity entity, DateTimeOffset value) => AuditableEntityUnsafeAccessors.CreatedAt(entity) = value);
             createdAt.SetMaterializationSetter(
-                (SubscriptionEntity entity, DateTimeOffset value) => AuditableEntityUnsafeAccessors.CreatedAt(entity) = value);
+                (ChannelEntity entity, DateTimeOffset value) => AuditableEntityUnsafeAccessors.CreatedAt(entity) = value);
             createdAt.SetAccessors(
-                DateTimeOffset (InternalEntityEntry entry) => AuditableEntityUnsafeAccessors.CreatedAt(((SubscriptionEntity)(entry.Entity))),
-                DateTimeOffset (InternalEntityEntry entry) => AuditableEntityUnsafeAccessors.CreatedAt(((SubscriptionEntity)(entry.Entity))),
+                DateTimeOffset (InternalEntityEntry entry) => AuditableEntityUnsafeAccessors.CreatedAt(((ChannelEntity)(entry.Entity))),
+                DateTimeOffset (InternalEntityEntry entry) => AuditableEntityUnsafeAccessors.CreatedAt(((ChannelEntity)(entry.Entity))),
                 DateTimeOffset (InternalEntityEntry entry) => entry.ReadOriginalValue<DateTimeOffset>(createdAt, 4),
                 DateTimeOffset (InternalEntityEntry entry) => entry.GetCurrentValue<DateTimeOffset>(createdAt),
                 object (ValueBuffer valueBuffer) => valueBuffer[4]);
@@ -178,17 +178,17 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
                 fieldInfo: typeof(AuditableEntity).GetField("<LastModifiedAt>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 sentinel: new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)));
             lastModifiedAt.SetGetter(
-                DateTimeOffset (SubscriptionEntity entity) => AuditableEntityUnsafeAccessors.LastModifiedAt(entity),
-                bool (SubscriptionEntity entity) => AuditableEntityUnsafeAccessors.LastModifiedAt(entity).EqualsExact(default(DateTimeOffset)),
-                DateTimeOffset (SubscriptionEntity instance) => AuditableEntityUnsafeAccessors.LastModifiedAt(instance),
-                bool (SubscriptionEntity instance) => AuditableEntityUnsafeAccessors.LastModifiedAt(instance).EqualsExact(default(DateTimeOffset)));
+                DateTimeOffset (ChannelEntity entity) => AuditableEntityUnsafeAccessors.LastModifiedAt(entity),
+                bool (ChannelEntity entity) => AuditableEntityUnsafeAccessors.LastModifiedAt(entity).EqualsExact(default(DateTimeOffset)),
+                DateTimeOffset (ChannelEntity instance) => AuditableEntityUnsafeAccessors.LastModifiedAt(instance),
+                bool (ChannelEntity instance) => AuditableEntityUnsafeAccessors.LastModifiedAt(instance).EqualsExact(default(DateTimeOffset)));
             lastModifiedAt.SetSetter(
-                (SubscriptionEntity entity, DateTimeOffset value) => AuditableEntityUnsafeAccessors.LastModifiedAt(entity) = value);
+                (ChannelEntity entity, DateTimeOffset value) => AuditableEntityUnsafeAccessors.LastModifiedAt(entity) = value);
             lastModifiedAt.SetMaterializationSetter(
-                (SubscriptionEntity entity, DateTimeOffset value) => AuditableEntityUnsafeAccessors.LastModifiedAt(entity) = value);
+                (ChannelEntity entity, DateTimeOffset value) => AuditableEntityUnsafeAccessors.LastModifiedAt(entity) = value);
             lastModifiedAt.SetAccessors(
-                DateTimeOffset (InternalEntityEntry entry) => AuditableEntityUnsafeAccessors.LastModifiedAt(((SubscriptionEntity)(entry.Entity))),
-                DateTimeOffset (InternalEntityEntry entry) => AuditableEntityUnsafeAccessors.LastModifiedAt(((SubscriptionEntity)(entry.Entity))),
+                DateTimeOffset (InternalEntityEntry entry) => AuditableEntityUnsafeAccessors.LastModifiedAt(((ChannelEntity)(entry.Entity))),
+                DateTimeOffset (InternalEntityEntry entry) => AuditableEntityUnsafeAccessors.LastModifiedAt(((ChannelEntity)(entry.Entity))),
                 DateTimeOffset (InternalEntityEntry entry) => entry.ReadOriginalValue<DateTimeOffset>(lastModifiedAt, 5),
                 DateTimeOffset (InternalEntityEntry entry) => entry.GetCurrentValue<DateTimeOffset>(lastModifiedAt),
                 object (ValueBuffer valueBuffer) => valueBuffer[5]);
@@ -221,7 +221,7 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
             runtimeEntityType.SetOriginalValuesFactory(
                 ISnapshot (InternalEntityEntry source) =>
                 {
-                    var entity = ((SubscriptionEntity)(source.Entity));
+                    var entity = ((ChannelEntity)(source.Entity));
                     return ((ISnapshot)(new Snapshot<string, string, string, string, DateTimeOffset, DateTimeOffset>((source.GetCurrentValue<string>(channelId) == null ? null : ((ValueComparer<string>)(((IProperty)channelId).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(channelId))), (source.GetCurrentValue<string>(channelHandle) == null ? null : ((ValueComparer<string>)(((IProperty)channelHandle).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(channelHandle))), (source.GetCurrentValue<string>(channelName) == null ? null : ((ValueComparer<string>)(((IProperty)channelName).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(channelName))), (source.GetCurrentValue<string>(channelThumbnail) == null ? null : ((ValueComparer<string>)(((IProperty)channelThumbnail).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(channelThumbnail))), ((ValueComparer<DateTimeOffset>)(((IProperty)createdAt).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTimeOffset>(createdAt)), ((ValueComparer<DateTimeOffset>)(((IProperty)lastModifiedAt).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTimeOffset>(lastModifiedAt)))));
                 });
             runtimeEntityType.SetStoreGeneratedValuesFactory(
@@ -235,7 +235,7 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
             runtimeEntityType.SetRelationshipSnapshotFactory(
                 ISnapshot (InternalEntityEntry source) =>
                 {
-                    var entity = ((SubscriptionEntity)(source.Entity));
+                    var entity = ((ChannelEntity)(source.Entity));
                     return ((ISnapshot)(new Snapshot<string>((source.GetCurrentValue<string>(channelId) == null ? null : ((ValueComparer<string>)(((IProperty)channelId).GetKeyValueComparer())).Snapshot(source.GetCurrentValue<string>(channelId))))));
                 });
             runtimeEntityType.Counts = new PropertyCounts(

@@ -1,7 +1,6 @@
 using FluentValidation;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace SimpleTube.Shared.Mediator.Internal;
+namespace SimpleTube.RestApi.Infrastructure.Mediator.Internal;
 
 internal sealed class ValidatingDelegatingMessageHandler<TMessage, TResult>
     : DelegatingMessageHandler<TMessage, TResult>

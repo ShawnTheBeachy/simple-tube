@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using SimpleTube.Shared.Mediator;
+using SimpleTube.RestApi.Infrastructure.Mediator;
 
-namespace SimpleTube.Shared.Commands;
+namespace SimpleTube.RestApi.Commands;
 
 public sealed record SubscribeCommand : ICommand<SubscribeCommand.Result>
 {

@@ -32,10 +32,11 @@ public sealed partial class ChannelsPage : IAsyncDisposable
 
     private sealed record Channel
     {
-        public required string ChannelHandle { get; init; }
-        public required string ChannelId { get; init; }
-        public required string ChannelName { get; init; }
-        public required string ChannelThumbnail { get; init; }
+        public required string Handle { get; init; }
+        public required string Id { get; init; }
+        public required string Name { get; init; }
+        public required string Thumbnail { get; init; }
+        public required int UnwatchedVideos { get; init; }
 
         [JsonPropertyName("$entity#url")]
         public required string Url { get; init; }

@@ -1,5 +1,4 @@
-﻿using SimpleTube.Shared.Mediator;
-using SimpleTube.Shared.Queries;
+﻿using SimpleTube.RestApi.Infrastructure.Mediator;
 
 namespace SimpleTube.RestApi.Queries;
 

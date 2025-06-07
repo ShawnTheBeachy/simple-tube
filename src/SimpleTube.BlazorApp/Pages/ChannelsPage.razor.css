@@ -21,7 +21,7 @@ li {
     border-radius: var(--radius-xl);
     box-shadow: 0 4px 6px -1px #181818, 0 2px 4px -2px #181818;
     display: flex;
-    max-height: calc(var(--spacing) * 18);
+    max-height: calc(var(--spacing) * 20);
     overflow: hidden;
     transition-duration: 500ms;
     transition-property: transform;
@@ -32,9 +32,11 @@ li:hover {
 }
 
 li a {
+    align-items: center;
     display: flex;
     flex-direction: row;
     overflow: hidden;
+    padding-right: calc(var(--spacing) * 3.5);
 }
 
 img.thumbnail {
@@ -50,7 +52,7 @@ img.thumbnail {
     column-gap: calc(var(--spacing) * 2);
     justify-content: center;
     overflow: hidden;
-    padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3.5);
+    padding: calc(var(--spacing) * 2) 0 calc(var(--spacing) * 2) calc(var(--spacing) * 3.5);
 }
 
 .channel-name {
@@ -71,4 +73,13 @@ img.thumbnail {
 
 .relative {
     position: relative;
+}
+
+.pill {
+    background-color: oklch(0.4 0 0);
+    border-radius: calc(infinity * 1px);
+    color: var(--color-white);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    padding: calc(var(--spacing) * 1.5) calc(var(--spacing) * 2);
 }

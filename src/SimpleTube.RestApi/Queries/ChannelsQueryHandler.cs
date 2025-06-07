@@ -1,7 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 using SimpleTube.RestApi.Infrastructure.Database;
-using SimpleTube.Shared.Mediator;
-using SimpleTube.Shared.Queries;
+using SimpleTube.RestApi.Infrastructure.Mediator;
 
 namespace SimpleTube.RestApi.Queries;
 
@@ -10,12 +9,22 @@ internal sealed class ChannelsQueryHandler : IQueryHandler<ChannelsQuery, Channe
     private readonly ConnectionStringProvider _connectionStringProvider;
 
     private const string Sql = """
-        SELECT [ChannelHandle],
-               [ChannelId],
-               [ChannelName],
-               [ChannelThumbnail]
-        FROM [Subscriptions]
-        ORDER BY [ChannelName] COLLATE NOCASE
+        SELECT [Channels].[Handle],
+               [Channels].[Id],
+               [Channels].[Name],
+               [Channels].[Thumbnail],
+               COUNT([Videos].[Id])
+        FROM [Channels]
+        LEFT JOIN [Videos]
+            ON [Videos].[ChannelId] = [Channels].[Id]
+            AND [Videos].[Watched] = 0
+        GROUP BY [Channels].[Handle],
+                 [Channels].[Id],
+                 [Channels].[Name],
+                 [Channels].[Thumbnail],
+                 [Channels].[CreatedAt],
+                 [Channels].[LastModifiedAt]
+        ORDER BY [Name] COLLATE NOCASE
         """;
 
     public ChannelsQueryHandler(ConnectionStringProvider connectionStringProvider)
@@ -47,6 +56,7 @@ internal sealed class ChannelsQueryHandler : IQueryHandler<ChannelsQuery, Channe
                     ChannelId = reader.GetString(1),
                     ChannelName = reader.GetString(2),
                     ChannelThumbnail = reader.GetString(3),
+                    UnwatchedVideos = reader.GetInt16(4),
                 }
             );
         }

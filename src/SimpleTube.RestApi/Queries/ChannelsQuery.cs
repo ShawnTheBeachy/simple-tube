@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using SimpleTube.Shared.Mediator;
+using SimpleTube.RestApi.Infrastructure.Mediator;
 
-namespace SimpleTube.Shared.Queries;
+namespace SimpleTube.RestApi.Queries;
 
 public sealed record ChannelsQuery : IQuery<ChannelsQuery.Result>
 {
@@ -15,6 +15,7 @@ public sealed record ChannelsQuery : IQuery<ChannelsQuery.Result>
             public required string ChannelId { get; init; }
             public required string ChannelName { get; init; }
             public required string ChannelThumbnail { get; init; }
+            public required int UnwatchedVideos { get; init; }
         }
     }
 

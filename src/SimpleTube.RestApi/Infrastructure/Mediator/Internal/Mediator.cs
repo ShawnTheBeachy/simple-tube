@@ -1,6 +1,4 @@
-using Microsoft.Extensions.DependencyInjection;
-
-namespace SimpleTube.Shared.Mediator.Internal;
+namespace SimpleTube.RestApi.Infrastructure.Mediator.Internal;
 
 internal sealed class Mediator : IMediator
 {

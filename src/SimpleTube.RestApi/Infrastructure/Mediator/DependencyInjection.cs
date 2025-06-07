@@ -1,8 +1,7 @@
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using SimpleTube.Shared.Mediator.Internal;
+using SimpleTube.RestApi.Infrastructure.Mediator.Internal;
 
-namespace SimpleTube.Shared.Mediator;
+namespace SimpleTube.RestApi.Infrastructure.Mediator;
 
 public static class DependencyInjection
 {

@@ -1,5 +1,7 @@
-﻿using System.Text.Json;
+﻿using System.Runtime.CompilerServices;
+using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 using SimpleTube.RestApi.Infrastructure.YouTube.Models;
 
 namespace SimpleTube.RestApi.Infrastructure.YouTube;
@@ -10,26 +12,65 @@ internal static class HttpClientExtensions
         this HttpClient httpClient,
         string forHandle,
         CancellationToken cancellationToken
+    ) =>
+        await httpClient.Send(
+            $"channels?forHandle={forHandle}&part=snippet",
+            YouTubeJsonSerializerContext.Default.ListResponseChannel,
+            cancellationToken
+        );
+
+    public static async IAsyncEnumerable<SearchResult> ListChannelVideos(
+        this HttpClient httpClient,
+        string channelId,
+        [EnumeratorCancellation] CancellationToken cancellationToken
+    )
+    {
+        string? pageToken = null;
+
+        do
+        {
+            var response = await httpClient.Send(
+                $"search?channelId={channelId}&type=video&part=snippet&order=date&maxResults=50&pageToken={pageToken}",
+                YouTubeJsonSerializerContext.Default.ListResponseSearchResult,
+                cancellationToken
+            );
+            pageToken = response.NextPageToken;
+
+            foreach (var result in response.Items)
+                yield return result;
+        } while (pageToken is not null);
+    }
+
+    private static async ValueTask<TR> Send<TR>(
+        this HttpClient httpClient,
+        string url,
+        JsonTypeInfo<TR> jsonTypeInfo,
+        CancellationToken cancellationToken
     )
     {
         var response = await httpClient.GetAsync(
-            $"channels?forHandle={forHandle}&part=snippet",
+            url,
             HttpCompletionOption.ResponseHeadersRead,
             cancellationToken
         );
         response.EnsureSuccessStatusCode();
-        var listResponse = await JsonSerializer.DeserializeAsync<ListResponse<Channel>>(
+        var x = await response.Content.ReadAsStringAsync(cancellationToken);
+        var tr = await JsonSerializer.DeserializeAsync(
             await response.Content.ReadAsStreamAsync(cancellationToken),
-            YouTubeJsonSerializerContext.Default.ListResponseChannel,
+            jsonTypeInfo,
             cancellationToken
         );
-        return listResponse!;
+        return tr!;
     }
 }
 
 [JsonSerializable(typeof(Channel))]
 [JsonSerializable(typeof(ChannelSnippet))]
 [JsonSerializable(typeof(ListResponse<Channel>))]
+[JsonSerializable(typeof(ListResponse<SearchResult>))]
+[JsonSerializable(typeof(SearchResult))]
+[JsonSerializable(typeof(SearchResultId))]
+[JsonSerializable(typeof(SearchResultSnippet))]
 [JsonSerializable(typeof(Thumbnail))]
 [JsonSerializable(typeof(Thumbnails))]
 internal sealed partial class YouTubeJsonSerializerContext : JsonSerializerContext;

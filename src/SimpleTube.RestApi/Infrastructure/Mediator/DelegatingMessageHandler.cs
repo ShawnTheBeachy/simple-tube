@@ -1,4 +1,4 @@
-namespace SimpleTube.Shared.Mediator;
+namespace SimpleTube.RestApi.Infrastructure.Mediator;
 
 public abstract class DelegatingMessageHandler<TMessage, TResult>
     where TMessage : IMessage<TResult>

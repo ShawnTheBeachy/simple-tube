@@ -1,7 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 using SimpleTube.RestApi.Infrastructure.Database;
-using SimpleTube.Shared.Commands;
-using SimpleTube.Shared.Mediator;
+using SimpleTube.RestApi.Infrastructure.Mediator;
 
 namespace SimpleTube.RestApi.Commands;
 
@@ -12,8 +11,8 @@ internal sealed class UnsubscribeCommandHandler
 
     private const string Sql = """
         DELETE
-        FROM [Subscriptions]
-        WHERE [ChannelHandle] = @channelHandle
+        FROM [Channels]
+        WHERE [Handle] = @channelHandle
         """;
 
     public UnsubscribeCommandHandler(ConnectionStringProvider connectionStringProvider)

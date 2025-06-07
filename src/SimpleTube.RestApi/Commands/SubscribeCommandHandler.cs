@@ -1,10 +1,11 @@
 ﻿using Microsoft.Data.Sqlite;
 using SimpleTube.RestApi.Infrastructure.Database;
 using SimpleTube.RestApi.Infrastructure.Database.Entities;
+using SimpleTube.RestApi.Infrastructure.Mediator;
 using SimpleTube.RestApi.Infrastructure.YouTube;
 using SimpleTube.RestApi.Infrastructure.YouTube.Models;
-using SimpleTube.Shared.Commands;
-using SimpleTube.Shared.Mediator;
+using SimpleTube.RestApi.Messages;
+using SlimMessageBus;
 
 namespace SimpleTube.RestApi.Commands;
 
@@ -16,12 +17,12 @@ internal sealed class SubscribeCommandHandler
     private readonly IHttpClientFactory _httpClientFactory;
 
     private const string GetExistingSql = """
-        SELECT [ChannelHandle],
-               [ChannelId],
-               [ChannelName],
-               [ChannelThumbnail]
-        FROM [Subscriptions]
-        WHERE [ChannelHandle] = @channelHandle
+        SELECT [Handle],
+               [Id],
+               [Name],
+               [Thumbnail]
+        FROM [Channels]
+        WHERE [Handle] = @channelHandle
         """;
 
     public SubscribeCommandHandler(
@@ -40,33 +41,37 @@ internal sealed class SubscribeCommandHandler
         CancellationToken cancellationToken
     )
     {
-        var subscription = await GetExistingSubscription(command, cancellationToken);
+        var channel = await GetExistingChannel(command, cancellationToken);
 
-        if (subscription is not null)
+        if (channel is not null)
             return new SubscribeCommand.Result
             {
-                ChannelHandle = subscription.ChannelHandle,
-                ChannelId = subscription.ChannelId,
-                ChannelName = subscription.ChannelName,
-                ChannelThumbnail = subscription.ChannelThumbnail,
+                ChannelHandle = channel.Handle,
+                ChannelId = channel.Id,
+                ChannelName = channel.Name,
+                ChannelThumbnail = channel.Thumbnail,
             };
 
         var channelInfo = await GetChannelInfo(command, cancellationToken);
-        subscription = new SubscriptionEntity
+        channel = new ChannelEntity
         {
-            ChannelHandle = command.ChannelHandle,
-            ChannelId = channelInfo.Id,
-            ChannelName = channelInfo.Snippet.Title,
-            ChannelThumbnail = channelInfo.Snippet.Thumbnails.High.Url,
+            Handle = command.ChannelHandle,
+            Id = channelInfo.Id,
+            Name = channelInfo.Snippet.Title,
+            Thumbnail = channelInfo.Snippet.Thumbnails.High.Url,
         };
-        _dbContext.Subscriptions.Add(subscription);
+        _dbContext.Channels.Add(channel);
         await _dbContext.SaveChangesAsync(cancellationToken);
+        await MessageBus.Current.Publish(
+            new SubscribedToChannelMessage { ChannelId = channel.Id },
+            cancellationToken: cancellationToken
+        );
         return new SubscribeCommand.Result
         {
-            ChannelHandle = subscription.ChannelHandle,
-            ChannelId = subscription.ChannelId,
-            ChannelName = subscription.ChannelName,
-            ChannelThumbnail = subscription.ChannelThumbnail,
+            ChannelHandle = channel.Handle,
+            ChannelId = channel.Id,
+            ChannelName = channel.Name,
+            ChannelThumbnail = channel.Thumbnail,
         };
     }
 
@@ -81,7 +86,7 @@ internal sealed class SubscribeCommandHandler
         return response.Items[0];
     }
 
-    private async ValueTask<SubscriptionEntity?> GetExistingSubscription(
+    private async ValueTask<ChannelEntity?> GetExistingChannel(
         SubscribeCommand command,
         CancellationToken cancellationToken
     )
@@ -98,12 +103,12 @@ internal sealed class SubscribeCommandHandler
 
         while (await reader.ReadAsync(cancellationToken))
         {
-            var subscription = new SubscriptionEntity
+            var subscription = new ChannelEntity
             {
-                ChannelHandle = reader.GetString(0),
-                ChannelId = reader.GetString(1),
-                ChannelName = reader.GetString(2),
-                ChannelThumbnail = reader.GetString(3),
+                Handle = reader.GetString(0),
+                Id = reader.GetString(1),
+                Name = reader.GetString(2),
+                Thumbnail = reader.GetString(3),
             };
             return subscription;
         }

@@ -1,8 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using SimpleTube.RestApi.Exceptions;
 using SimpleTube.RestApi.Infrastructure.Database;
-using SimpleTube.Shared.Mediator;
-using SimpleTube.Shared.Queries;
+using SimpleTube.RestApi.Infrastructure.Mediator;
 
 namespace SimpleTube.RestApi.Queries;
 
@@ -12,14 +11,14 @@ internal sealed class ChannelByHandleQueryHandler
     private readonly ConnectionStringProvider _connectionStringProvider;
 
     private const string Sql = """
-        SELECT [ChannelHandle],
-               [ChannelId],
-               [ChannelName],
-               [ChannelThumbnail],
+        SELECT [Handle],
+               [Id],
+               [Name],
+               [Thumbnail],
                unixepoch([CreatedAt]),
                unixepoch([LastModifiedAt])
-        FROM [Subscriptions]
-        WHERE [ChannelHandle] = @channelHandle
+        FROM [Channels]
+        WHERE [Handle] = @channelHandle
         """;
 
     public ChannelByHandleQueryHandler(ConnectionStringProvider connectionStringProvider)

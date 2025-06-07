@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using SimpleTube.Shared.Mediator;
+using SimpleTube.RestApi.Infrastructure.Mediator;
 
-namespace SimpleTube.Shared.Queries;
+namespace SimpleTube.RestApi.Queries;
 
 public sealed record ChannelByHandleQuery : IQuery<ChannelByHandleQuery.Result>
 {

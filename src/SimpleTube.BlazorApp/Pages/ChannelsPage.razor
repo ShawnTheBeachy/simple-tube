@@ -10,15 +10,22 @@
                 <a href="@channel.Url">
                     <img alt="Channel thumbnail"
                          class="thumbnail"
-                         src="@channel.ChannelThumbnail" />
+                         src="@channel.Thumbnail" />
                     <div class="channel-info">
                         <h4 class="channel-name">
-                            @channel.ChannelName
+                            @channel.Name
                         </h4>
                         <span class="channel-handle">
-                            @@@channel.ChannelHandle
+                            @@@channel.Handle
                         </span>
                     </div>
+
+                    @if (channel.UnwatchedVideos > 0)
+                    {
+                        <div class="pill">
+                            @channel.UnwatchedVideos
+                        </div>
+                    }
                 </a>
             </li>
         }

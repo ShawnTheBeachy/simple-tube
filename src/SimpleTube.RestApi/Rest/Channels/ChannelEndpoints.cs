@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SimpleTube.Shared.Commands;
-using SimpleTube.Shared.Mediator;
-using SimpleTube.Shared.Queries;
+using SimpleTube.RestApi.Commands;
+using SimpleTube.RestApi.Infrastructure.Mediator;
+using SimpleTube.RestApi.Queries;
 
 namespace SimpleTube.RestApi.Rest.Channels;
 
@@ -21,13 +21,14 @@ internal static class ChannelEndpoints
                         cancellationToken
                     );
                     return result
-                        .Channels.Select(subscription => new Channel
+                        .Channels.Select(channel => new Channel
                         {
-                            ChannelHandle = subscription.ChannelHandle,
-                            ChannelId = subscription.ChannelId,
-                            ChannelName = subscription.ChannelName,
-                            ChannelThumbnail = subscription.ChannelThumbnail,
-                            Url = $"{groupName}/{subscription.ChannelHandle}",
+                            Handle = channel.ChannelHandle,
+                            Id = channel.ChannelId,
+                            Name = channel.ChannelName,
+                            Thumbnail = channel.ChannelThumbnail,
+                            UnwatchedVideos = channel.UnwatchedVideos,
+                            Url = $"{groupName}/{channel.ChannelHandle}",
                         })
                         .ToArray();
                 }
@@ -52,10 +53,10 @@ internal static class ChannelEndpoints
                     );
                     return new Channel
                     {
-                        ChannelHandle = result.ChannelHandle,
-                        ChannelId = result.ChannelId,
-                        ChannelName = result.ChannelName,
-                        ChannelThumbnail = result.ChannelThumbnail,
+                        Handle = result.ChannelHandle,
+                        Id = result.ChannelId,
+                        Name = result.ChannelName,
+                        Thumbnail = result.ChannelThumbnail,
                         CreatedAt = result.CreatedAt,
                         LastModifiedAt = result.LastModifiedAt,
                         Url = $"{groupName}/{result.ChannelHandle}",
@@ -80,10 +81,10 @@ internal static class ChannelEndpoints
                     );
                     return new Channel
                     {
-                        ChannelHandle = result.ChannelHandle,
-                        ChannelId = result.ChannelId,
-                        ChannelName = result.ChannelName,
-                        ChannelThumbnail = result.ChannelThumbnail,
+                        Handle = result.ChannelHandle,
+                        Id = result.ChannelId,
+                        Name = result.ChannelName,
+                        Thumbnail = result.ChannelThumbnail,
                         Url = $"{groupName}/{result.ChannelHandle}",
                     };
                 }

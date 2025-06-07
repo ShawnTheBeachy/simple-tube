@@ -4,11 +4,12 @@ using FluentValidation;
 using SimpleTube.RestApi.Commands;
 using SimpleTube.RestApi.Exceptions;
 using SimpleTube.RestApi.Infrastructure;
+using SimpleTube.RestApi.Infrastructure.Mediator;
 using SimpleTube.RestApi.Queries;
 using SimpleTube.RestApi.Rest;
 using SimpleTube.RestApi.Rest.Channels;
-using SimpleTube.Shared.Commands;
-using SimpleTube.Shared.Mediator;
+using SlimMessageBus.Host;
+using SlimMessageBus.Host.Memory;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 builder.Configuration.AddUserSecrets<Program>();
@@ -22,6 +23,11 @@ builder
         includeInternalTypes: true
     );
 
+builder.Services.AddSlimMessageBus(opts =>
+{
+    opts.AddAspNet().WithProviderMemory().AutoDeclareFromAssemblyContaining<Program>();
+});
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddOpenApi();
 builder.Services.AddResponseCaching().AddResponseCompression().AddOutputCache();
 builder.Services.ConfigureHttpJsonOptions(options =>

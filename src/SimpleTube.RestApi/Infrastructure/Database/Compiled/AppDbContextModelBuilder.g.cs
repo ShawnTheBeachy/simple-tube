@@ -15,15 +15,15 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
     public partial class AppDbContextModel
     {
         private AppDbContextModel()
-            : base(skipDetectChanges: false, modelId: new Guid("525e836d-6ecc-4e3b-a439-01022cec8322"), entityTypeCount: 1)
+            : base(skipDetectChanges: false, modelId: new Guid("c3a557f2-dfe9-4356-850d-ba88052e1aca"), entityTypeCount: 1)
         {
         }
 
         partial void Initialize()
         {
-            var subscriptionEntity = SubscriptionEntityEntityType.Create(this);
+            var channelEntity = ChannelEntityEntityType.Create(this);
 
-            SubscriptionEntityEntityType.CreateAnnotations(subscriptionEntity);
+            ChannelEntityEntityType.CreateAnnotations(channelEntity);
 
             AddAnnotation("ProductVersion", "9.0.5");
             AddRuntimeAnnotation("Relational:RelationalModelFactory", () => CreateRelationalModel());
@@ -33,74 +33,74 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
         {
             var relationalModel = new RelationalModel(this);
 
-            var subscriptionEntity = FindEntityType("SimpleTube.RestApi.Infrastructure.Database.Entities.SubscriptionEntity")!;
+            var channelEntity = FindEntityType("SimpleTube.RestApi.Infrastructure.Database.Entities.ChannelEntity")!;
 
             var defaultTableMappings = new List<TableMappingBase<ColumnMappingBase>>();
-            subscriptionEntity.SetRuntimeAnnotation("Relational:DefaultMappings", defaultTableMappings);
-            var simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityTableBase = new TableBase("SimpleTube.RestApi.Infrastructure.Database.Entities.SubscriptionEntity", null, relationalModel);
-            var channelHandleColumnBase = new ColumnBase<ColumnMappingBase>("ChannelHandle", "TEXT", simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityTableBase);
-            simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityTableBase.Columns.Add("ChannelHandle", channelHandleColumnBase);
-            var channelIdColumnBase = new ColumnBase<ColumnMappingBase>("ChannelId", "TEXT", simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityTableBase);
-            simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityTableBase.Columns.Add("ChannelId", channelIdColumnBase);
-            var channelNameColumnBase = new ColumnBase<ColumnMappingBase>("ChannelName", "TEXT", simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityTableBase);
-            simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityTableBase.Columns.Add("ChannelName", channelNameColumnBase);
-            var channelThumbnailColumnBase = new ColumnBase<ColumnMappingBase>("ChannelThumbnail", "TEXT", simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityTableBase);
-            simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityTableBase.Columns.Add("ChannelThumbnail", channelThumbnailColumnBase);
-            var createdAtColumnBase = new ColumnBase<ColumnMappingBase>("CreatedAt", "TEXT", simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityTableBase);
-            simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityTableBase.Columns.Add("CreatedAt", createdAtColumnBase);
-            var lastModifiedAtColumnBase = new ColumnBase<ColumnMappingBase>("LastModifiedAt", "TEXT", simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityTableBase);
-            simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityTableBase.Columns.Add("LastModifiedAt", lastModifiedAtColumnBase);
-            relationalModel.DefaultTables.Add("SimpleTube.RestApi.Infrastructure.Database.Entities.SubscriptionEntity", simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityTableBase);
-            var simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityMappingBase = new TableMappingBase<ColumnMappingBase>(subscriptionEntity, simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityTableBase, null);
-            simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityTableBase.AddTypeMapping(simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityMappingBase, false);
-            defaultTableMappings.Add(simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityMappingBase);
-            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)channelIdColumnBase, subscriptionEntity.FindProperty("ChannelId")!, simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityMappingBase);
-            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)channelHandleColumnBase, subscriptionEntity.FindProperty("ChannelHandle")!, simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityMappingBase);
-            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)channelNameColumnBase, subscriptionEntity.FindProperty("ChannelName")!, simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityMappingBase);
-            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)channelThumbnailColumnBase, subscriptionEntity.FindProperty("ChannelThumbnail")!, simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityMappingBase);
-            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)createdAtColumnBase, subscriptionEntity.FindProperty("CreatedAt")!, simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityMappingBase);
-            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)lastModifiedAtColumnBase, subscriptionEntity.FindProperty("LastModifiedAt")!, simpleTubeRestApiInfrastructureDatabaseEntitiesSubscriptionEntityMappingBase);
+            channelEntity.SetRuntimeAnnotation("Relational:DefaultMappings", defaultTableMappings);
+            var simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase = new TableBase("SimpleTube.RestApi.Infrastructure.Database.Entities.ChannelEntity", null, relationalModel);
+            var createdAtColumnBase = new ColumnBase<ColumnMappingBase>("CreatedAt", "TEXT", simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase);
+            simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase.Columns.Add("CreatedAt", createdAtColumnBase);
+            var handleColumnBase = new ColumnBase<ColumnMappingBase>("Handle", "TEXT", simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase);
+            simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase.Columns.Add("Handle", handleColumnBase);
+            var idColumnBase = new ColumnBase<ColumnMappingBase>("Id", "TEXT", simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase);
+            simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase.Columns.Add("Id", idColumnBase);
+            var lastModifiedAtColumnBase = new ColumnBase<ColumnMappingBase>("LastModifiedAt", "TEXT", simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase);
+            simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase.Columns.Add("LastModifiedAt", lastModifiedAtColumnBase);
+            var nameColumnBase = new ColumnBase<ColumnMappingBase>("Name", "TEXT", simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase);
+            simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase.Columns.Add("Name", nameColumnBase);
+            var thumbnailColumnBase = new ColumnBase<ColumnMappingBase>("Thumbnail", "TEXT", simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase);
+            simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase.Columns.Add("Thumbnail", thumbnailColumnBase);
+            relationalModel.DefaultTables.Add("SimpleTube.RestApi.Infrastructure.Database.Entities.ChannelEntity", simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase);
+            var simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityMappingBase = new TableMappingBase<ColumnMappingBase>(channelEntity, simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase, null);
+            simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase.AddTypeMapping(simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityMappingBase, false);
+            defaultTableMappings.Add(simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityMappingBase);
+            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)idColumnBase, channelEntity.FindProperty("Id")!, simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityMappingBase);
+            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)createdAtColumnBase, channelEntity.FindProperty("CreatedAt")!, simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityMappingBase);
+            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)handleColumnBase, channelEntity.FindProperty("Handle")!, simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityMappingBase);
+            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)lastModifiedAtColumnBase, channelEntity.FindProperty("LastModifiedAt")!, simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityMappingBase);
+            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)nameColumnBase, channelEntity.FindProperty("Name")!, simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityMappingBase);
+            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)thumbnailColumnBase, channelEntity.FindProperty("Thumbnail")!, simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityMappingBase);
 
             var tableMappings = new List<TableMapping>();
-            subscriptionEntity.SetRuntimeAnnotation("Relational:TableMappings", tableMappings);
-            var subscriptionsTable = new Table("Subscriptions", null, relationalModel);
-            var channelIdColumn = new Column("ChannelId", "TEXT", subscriptionsTable);
-            subscriptionsTable.Columns.Add("ChannelId", channelIdColumn);
-            channelIdColumn.Accessors = ColumnAccessorsFactory.CreateGeneric<string>(channelIdColumn);
-            var channelHandleColumn = new Column("ChannelHandle", "TEXT", subscriptionsTable);
-            subscriptionsTable.Columns.Add("ChannelHandle", channelHandleColumn);
-            channelHandleColumn.Accessors = ColumnAccessorsFactory.CreateGeneric<string>(channelHandleColumn);
-            var channelNameColumn = new Column("ChannelName", "TEXT", subscriptionsTable);
-            subscriptionsTable.Columns.Add("ChannelName", channelNameColumn);
-            channelNameColumn.Accessors = ColumnAccessorsFactory.CreateGeneric<string>(channelNameColumn);
-            var channelThumbnailColumn = new Column("ChannelThumbnail", "TEXT", subscriptionsTable);
-            subscriptionsTable.Columns.Add("ChannelThumbnail", channelThumbnailColumn);
-            channelThumbnailColumn.Accessors = ColumnAccessorsFactory.CreateGeneric<string>(channelThumbnailColumn);
-            var createdAtColumn = new Column("CreatedAt", "TEXT", subscriptionsTable);
-            subscriptionsTable.Columns.Add("CreatedAt", createdAtColumn);
+            channelEntity.SetRuntimeAnnotation("Relational:TableMappings", tableMappings);
+            var channelsTable = new Table("Channels", null, relationalModel);
+            var idColumn = new Column("Id", "TEXT", channelsTable);
+            channelsTable.Columns.Add("Id", idColumn);
+            idColumn.Accessors = ColumnAccessorsFactory.CreateGeneric<string>(idColumn);
+            var createdAtColumn = new Column("CreatedAt", "TEXT", channelsTable);
+            channelsTable.Columns.Add("CreatedAt", createdAtColumn);
             createdAtColumn.Accessors = ColumnAccessorsFactory.CreateGeneric<DateTimeOffset>(createdAtColumn);
-            var lastModifiedAtColumn = new Column("LastModifiedAt", "TEXT", subscriptionsTable);
-            subscriptionsTable.Columns.Add("LastModifiedAt", lastModifiedAtColumn);
+            var handleColumn = new Column("Handle", "TEXT", channelsTable);
+            channelsTable.Columns.Add("Handle", handleColumn);
+            handleColumn.Accessors = ColumnAccessorsFactory.CreateGeneric<string>(handleColumn);
+            var lastModifiedAtColumn = new Column("LastModifiedAt", "TEXT", channelsTable);
+            channelsTable.Columns.Add("LastModifiedAt", lastModifiedAtColumn);
             lastModifiedAtColumn.Accessors = ColumnAccessorsFactory.CreateGeneric<DateTimeOffset>(lastModifiedAtColumn);
-            relationalModel.Tables.Add(("Subscriptions", null), subscriptionsTable);
-            var subscriptionsTableMapping = new TableMapping(subscriptionEntity, subscriptionsTable, null);
-            subscriptionsTable.AddTypeMapping(subscriptionsTableMapping, false);
-            tableMappings.Add(subscriptionsTableMapping);
-            RelationalModel.CreateColumnMapping(channelIdColumn, subscriptionEntity.FindProperty("ChannelId")!, subscriptionsTableMapping);
-            RelationalModel.CreateColumnMapping(channelHandleColumn, subscriptionEntity.FindProperty("ChannelHandle")!, subscriptionsTableMapping);
-            RelationalModel.CreateColumnMapping(channelNameColumn, subscriptionEntity.FindProperty("ChannelName")!, subscriptionsTableMapping);
-            RelationalModel.CreateColumnMapping(channelThumbnailColumn, subscriptionEntity.FindProperty("ChannelThumbnail")!, subscriptionsTableMapping);
-            RelationalModel.CreateColumnMapping(createdAtColumn, subscriptionEntity.FindProperty("CreatedAt")!, subscriptionsTableMapping);
-            RelationalModel.CreateColumnMapping(lastModifiedAtColumn, subscriptionEntity.FindProperty("LastModifiedAt")!, subscriptionsTableMapping);
-            var pK_Subscriptions = new UniqueConstraint("PK_Subscriptions", subscriptionsTable, new[] { channelIdColumn });
-            subscriptionsTable.PrimaryKey = pK_Subscriptions;
-            pK_Subscriptions.SetRowKeyValueFactory(new SimpleRowKeyValueFactory<string>(pK_Subscriptions));
-            var pK_SubscriptionsKey = RelationalModel.GetKey(this,
-                "SimpleTube.RestApi.Infrastructure.Database.Entities.SubscriptionEntity",
-                new[] { "ChannelId" });
-            pK_Subscriptions.MappedKeys.Add(pK_SubscriptionsKey);
-            RelationalModel.GetOrCreateUniqueConstraints(pK_SubscriptionsKey).Add(pK_Subscriptions);
-            subscriptionsTable.UniqueConstraints.Add("PK_Subscriptions", pK_Subscriptions);
+            var nameColumn = new Column("Name", "TEXT", channelsTable);
+            channelsTable.Columns.Add("Name", nameColumn);
+            nameColumn.Accessors = ColumnAccessorsFactory.CreateGeneric<string>(nameColumn);
+            var thumbnailColumn = new Column("Thumbnail", "TEXT", channelsTable);
+            channelsTable.Columns.Add("Thumbnail", thumbnailColumn);
+            thumbnailColumn.Accessors = ColumnAccessorsFactory.CreateGeneric<string>(thumbnailColumn);
+            relationalModel.Tables.Add(("Channels", null), channelsTable);
+            var channelsTableMapping = new TableMapping(channelEntity, channelsTable, null);
+            channelsTable.AddTypeMapping(channelsTableMapping, false);
+            tableMappings.Add(channelsTableMapping);
+            RelationalModel.CreateColumnMapping(idColumn, channelEntity.FindProperty("Id")!, channelsTableMapping);
+            RelationalModel.CreateColumnMapping(createdAtColumn, channelEntity.FindProperty("CreatedAt")!, channelsTableMapping);
+            RelationalModel.CreateColumnMapping(handleColumn, channelEntity.FindProperty("Handle")!, channelsTableMapping);
+            RelationalModel.CreateColumnMapping(lastModifiedAtColumn, channelEntity.FindProperty("LastModifiedAt")!, channelsTableMapping);
+            RelationalModel.CreateColumnMapping(nameColumn, channelEntity.FindProperty("Name")!, channelsTableMapping);
+            RelationalModel.CreateColumnMapping(thumbnailColumn, channelEntity.FindProperty("Thumbnail")!, channelsTableMapping);
+            var pK_Channels = new UniqueConstraint("PK_Channels", channelsTable, new[] { idColumn });
+            channelsTable.PrimaryKey = pK_Channels;
+            pK_Channels.SetRowKeyValueFactory(new SimpleRowKeyValueFactory<string>(pK_Channels));
+            var pK_ChannelsKey = RelationalModel.GetKey(this,
+                "SimpleTube.RestApi.Infrastructure.Database.Entities.ChannelEntity",
+                new[] { "Id" });
+            pK_Channels.MappedKeys.Add(pK_ChannelsKey);
+            RelationalModel.GetOrCreateUniqueConstraints(pK_ChannelsKey).Add(pK_Channels);
+            channelsTable.UniqueConstraints.Add("PK_Channels", pK_Channels);
             return relationalModel.MakeReadOnly();
         }
     }
