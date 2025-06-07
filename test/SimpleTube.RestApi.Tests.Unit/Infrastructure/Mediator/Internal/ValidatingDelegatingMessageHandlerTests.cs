@@ -1,9 +1,9 @@
 using FluentValidation;
-using SimpleTube.Shared.Mediator;
-using SimpleTube.Shared.Mediator.Internal;
+using SimpleTube.RestApi.Infrastructure.Mediator;
+using SimpleTube.RestApi.Infrastructure.Mediator.Internal;
 using TUnit.Assertions.AssertConditions.Throws;
 
-namespace SimpleTube.Shared.Tests.Unit.Mediator.Internal;
+namespace SimpleTube.RestApi.Tests.Unit.Infrastructure.Mediator.Internal;
 
 public sealed class ValidatingDelegatingMessageHandlerTests
 {

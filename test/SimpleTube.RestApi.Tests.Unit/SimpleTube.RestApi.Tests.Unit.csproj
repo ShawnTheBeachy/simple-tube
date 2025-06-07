@@ -18,6 +18,10 @@
     <Using Include="TUnit" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Infrastructure\" />
     <Folder Include="TestHelpers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\SimpleTube.RestApi\SimpleTube.RestApi.csproj" />
   </ItemGroup>
 </Project>

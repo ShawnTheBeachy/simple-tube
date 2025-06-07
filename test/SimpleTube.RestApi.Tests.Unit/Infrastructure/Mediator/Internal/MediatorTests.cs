@@ -1,10 +1,10 @@
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleTube.Shared.Mediator;
+using SimpleTube.RestApi.Infrastructure.Mediator;
 using TUnit.Assertions.AssertConditions.Throws;
-using Sut = SimpleTube.Shared.Mediator.Internal.Mediator;
+using Sut = SimpleTube.RestApi.Infrastructure.Mediator.Internal.Mediator;
 
-namespace SimpleTube.Shared.Tests.Unit.Mediator.Internal;
+namespace SimpleTube.RestApi.Tests.Unit.Infrastructure.Mediator.Internal;
 
 public sealed class MediatorTests
 {

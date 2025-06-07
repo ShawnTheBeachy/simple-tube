@@ -6,7 +6,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{44FF1ED8-C47
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{74BE7BCC-555B-4DB9-B886-09D846492EED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTube.Shared.Tests.Unit", "test\SimpleTube.Shared.Tests.Unit\SimpleTube.Shared.Tests.Unit.csproj", "{59B52640-63C6-444B-8F3E-937338A58F9A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTube.RestApi.Tests.Unit", "test\SimpleTube.RestApi.Tests.Unit\SimpleTube.RestApi.Tests.Unit.csproj", "{59B52640-63C6-444B-8F3E-937338A58F9A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTube.BlazorApp", "src\SimpleTube.BlazorApp\SimpleTube.BlazorApp.csproj", "{07E82698-245E-450A-A384-709F13BC9725}"
 EndProject

@@ -4,19 +4,16 @@ using TUnit.Assertions.AssertConditions.Interfaces;
 using TUnit.Assertions.AssertionBuilders;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
-namespace SimpleTube.Shared.Tests.Unit.TestHelpers.Logging;
+namespace SimpleTube.RestApi.Tests.Unit.TestHelpers.Logging;
 
 internal static class AssertionExtensions
 {
-
     public static InvokableValueAssertionBuilder<TestableLogger<T>> Logged<T>(
         this IValueSource<TestableLogger<T>> valueSource,
         LogLevel logLevel,
         string message,
-        [CallerArgumentExpression(nameof(logLevel))]
-        string doNotPopulateThisValue1 = "",
-        [CallerArgumentExpression(nameof(message))]
-        string doNotPopulateThisValue2 = ""
+        [CallerArgumentExpression(nameof(logLevel))] string doNotPopulateThisValue1 = "",
+        [CallerArgumentExpression(nameof(message))] string doNotPopulateThisValue2 = ""
     ) =>
         valueSource.RegisterAssertion(
             assertCondition: new Assertions<T>(logLevel, message),

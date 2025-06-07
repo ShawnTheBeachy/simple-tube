@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace SimpleTube.Shared.Tests.Unit.TestHelpers.Logging;
+namespace SimpleTube.RestApi.Tests.Unit.TestHelpers.Logging;
 
 internal sealed class TestableLogger<T> : ILogger<T>
 {

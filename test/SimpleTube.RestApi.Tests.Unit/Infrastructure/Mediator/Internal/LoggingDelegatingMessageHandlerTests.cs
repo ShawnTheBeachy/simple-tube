@@ -1,9 +1,9 @@
 using Microsoft.Extensions.Logging;
-using SimpleTube.Shared.Mediator;
-using SimpleTube.Shared.Mediator.Internal;
-using SimpleTube.Shared.Tests.Unit.TestHelpers.Logging;
+using SimpleTube.RestApi.Infrastructure.Mediator;
+using SimpleTube.RestApi.Infrastructure.Mediator.Internal;
+using SimpleTube.RestApi.Tests.Unit.TestHelpers.Logging;
 
-namespace SimpleTube.Shared.Tests.Unit.Mediator.Internal;
+namespace SimpleTube.RestApi.Tests.Unit.Infrastructure.Mediator.Internal;
 
 public sealed class LoggingDelegatingMessageHandlerTests
 {
