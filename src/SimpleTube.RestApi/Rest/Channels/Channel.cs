@@ -2,6 +2,7 @@
 
 internal sealed record Channel : RestEntity
 {
+    public string? Banner { get; init; }
     public string? Handle { get; init; }
     public string? Id { get; init; }
     public string? Name { get; init; }

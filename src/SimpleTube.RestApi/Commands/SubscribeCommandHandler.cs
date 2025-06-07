@@ -20,7 +20,8 @@ internal sealed class SubscribeCommandHandler
         SELECT [Handle],
                [Id],
                [Name],
-               [Thumbnail]
+               [Thumbnail],
+               [Banner]
         FROM [Channels]
         WHERE [Handle] = @channelHandle
         """;
@@ -46,6 +47,7 @@ internal sealed class SubscribeCommandHandler
         if (channel is not null)
             return new SubscribeCommand.Result
             {
+                ChannelBanner = channel.Banner,
                 ChannelHandle = channel.Handle,
                 ChannelId = channel.Id,
                 ChannelName = channel.Name,
@@ -55,6 +57,9 @@ internal sealed class SubscribeCommandHandler
         var channelInfo = await GetChannelInfo(command, cancellationToken);
         channel = new ChannelEntity
         {
+            Banner = channelInfo.BrandingSettings?.Image.BannerUrl is null
+                ? null
+                : $"{channelInfo.BrandingSettings.Image.BannerUrl}=w2120-fcrop64=1,00000000ffffffff-k-c0xffffffff-no-nd-rj",
             Handle = command.ChannelHandle,
             Id = channelInfo.Id,
             Name = channelInfo.Snippet.Title,
@@ -68,6 +73,7 @@ internal sealed class SubscribeCommandHandler
         );
         return new SubscribeCommand.Result
         {
+            ChannelBanner = channel.Banner,
             ChannelHandle = channel.Handle,
             ChannelId = channel.Id,
             ChannelName = channel.Name,
@@ -109,6 +115,7 @@ internal sealed class SubscribeCommandHandler
                 Id = reader.GetString(1),
                 Name = reader.GetString(2),
                 Thumbnail = reader.GetString(3),
+                Banner = reader.GetString(4),
             };
             return subscription;
         }

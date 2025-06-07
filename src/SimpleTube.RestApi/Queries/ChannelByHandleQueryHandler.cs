@@ -15,6 +15,7 @@ internal sealed class ChannelByHandleQueryHandler
                [Id],
                [Name],
                [Thumbnail],
+               [Banner],
                unixepoch([CreatedAt]),
                unixepoch([LastModifiedAt])
         FROM [Channels]
@@ -44,12 +45,13 @@ internal sealed class ChannelByHandleQueryHandler
         {
             var result = new ChannelByHandleQuery.Result
             {
-                ChannelHandle = reader.GetString(0),
-                ChannelId = reader.GetString(1),
-                ChannelName = reader.GetString(2),
-                ChannelThumbnail = reader.GetString(3),
-                CreatedAt = DateTimeOffset.FromUnixTimeSeconds(reader.GetInt64(4)),
-                LastModifiedAt = DateTimeOffset.FromUnixTimeSeconds(reader.GetInt64(5)),
+                Handle = reader.GetString(0),
+                Id = reader.GetString(1),
+                Name = reader.GetString(2),
+                Thumbnail = reader.GetString(3),
+                Banner = reader.IsDBNull(4) ? null : reader.GetString(4),
+                CreatedAt = DateTimeOffset.FromUnixTimeSeconds(reader.GetInt64(5)),
+                LastModifiedAt = DateTimeOffset.FromUnixTimeSeconds(reader.GetInt64(6)),
             };
             return result;
         }

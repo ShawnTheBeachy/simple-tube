@@ -13,6 +13,9 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
         [UnsafeAccessor(UnsafeAccessorKind.Field, Name = "<Id>k__BackingField")]
         public static extern ref string Id(ChannelEntity @this);
 
+        [UnsafeAccessor(UnsafeAccessorKind.Field, Name = "<Banner>k__BackingField")]
+        public static extern ref string Banner(ChannelEntity @this);
+
         [UnsafeAccessor(UnsafeAccessorKind.Field, Name = "<Handle>k__BackingField")]
         public static extern ref string Handle(ChannelEntity @this);
 

@@ -9,6 +9,7 @@ public sealed record SubscribeCommand : ICommand<SubscribeCommand.Result>
 
     public sealed record Result
     {
+        public required string? ChannelBanner { get; init; }
         public required string ChannelHandle { get; init; }
         public required string ChannelId { get; init; }
         public required string ChannelName { get; init; }

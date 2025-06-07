@@ -15,15 +15,17 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
     public partial class AppDbContextModel
     {
         private AppDbContextModel()
-            : base(skipDetectChanges: false, modelId: new Guid("c3a557f2-dfe9-4356-850d-ba88052e1aca"), entityTypeCount: 1)
+            : base(skipDetectChanges: false, modelId: new Guid("86f38f03-202e-45ef-b74e-046934917c17"), entityTypeCount: 2)
         {
         }
 
         partial void Initialize()
         {
             var channelEntity = ChannelEntityEntityType.Create(this);
+            var videoEntity = VideoEntityEntityType.Create(this);
 
             ChannelEntityEntityType.CreateAnnotations(channelEntity);
+            VideoEntityEntityType.CreateAnnotations(videoEntity);
 
             AddAnnotation("ProductVersion", "9.0.5");
             AddRuntimeAnnotation("Relational:RelationalModelFactory", () => CreateRelationalModel());
@@ -38,6 +40,11 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
             var defaultTableMappings = new List<TableMappingBase<ColumnMappingBase>>();
             channelEntity.SetRuntimeAnnotation("Relational:DefaultMappings", defaultTableMappings);
             var simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase = new TableBase("SimpleTube.RestApi.Infrastructure.Database.Entities.ChannelEntity", null, relationalModel);
+            var bannerColumnBase = new ColumnBase<ColumnMappingBase>("Banner", "TEXT", simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase)
+            {
+                IsNullable = true
+            };
+            simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase.Columns.Add("Banner", bannerColumnBase);
             var createdAtColumnBase = new ColumnBase<ColumnMappingBase>("CreatedAt", "TEXT", simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase);
             simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase.Columns.Add("CreatedAt", createdAtColumnBase);
             var handleColumnBase = new ColumnBase<ColumnMappingBase>("Handle", "TEXT", simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase);
@@ -55,6 +62,7 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
             simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityTableBase.AddTypeMapping(simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityMappingBase, false);
             defaultTableMappings.Add(simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityMappingBase);
             RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)idColumnBase, channelEntity.FindProperty("Id")!, simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityMappingBase);
+            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)bannerColumnBase, channelEntity.FindProperty("Banner")!, simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityMappingBase);
             RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)createdAtColumnBase, channelEntity.FindProperty("CreatedAt")!, simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityMappingBase);
             RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)handleColumnBase, channelEntity.FindProperty("Handle")!, simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityMappingBase);
             RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)lastModifiedAtColumnBase, channelEntity.FindProperty("LastModifiedAt")!, simpleTubeRestApiInfrastructureDatabaseEntitiesChannelEntityMappingBase);
@@ -67,6 +75,12 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
             var idColumn = new Column("Id", "TEXT", channelsTable);
             channelsTable.Columns.Add("Id", idColumn);
             idColumn.Accessors = ColumnAccessorsFactory.CreateGeneric<string>(idColumn);
+            var bannerColumn = new Column("Banner", "TEXT", channelsTable)
+            {
+                IsNullable = true
+            };
+            channelsTable.Columns.Add("Banner", bannerColumn);
+            bannerColumn.Accessors = ColumnAccessorsFactory.CreateGeneric<string>(bannerColumn);
             var createdAtColumn = new Column("CreatedAt", "TEXT", channelsTable);
             channelsTable.Columns.Add("CreatedAt", createdAtColumn);
             createdAtColumn.Accessors = ColumnAccessorsFactory.CreateGeneric<DateTimeOffset>(createdAtColumn);
@@ -87,6 +101,7 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
             channelsTable.AddTypeMapping(channelsTableMapping, false);
             tableMappings.Add(channelsTableMapping);
             RelationalModel.CreateColumnMapping(idColumn, channelEntity.FindProperty("Id")!, channelsTableMapping);
+            RelationalModel.CreateColumnMapping(bannerColumn, channelEntity.FindProperty("Banner")!, channelsTableMapping);
             RelationalModel.CreateColumnMapping(createdAtColumn, channelEntity.FindProperty("CreatedAt")!, channelsTableMapping);
             RelationalModel.CreateColumnMapping(handleColumn, channelEntity.FindProperty("Handle")!, channelsTableMapping);
             RelationalModel.CreateColumnMapping(lastModifiedAtColumn, channelEntity.FindProperty("LastModifiedAt")!, channelsTableMapping);
@@ -101,6 +116,75 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
             pK_Channels.MappedKeys.Add(pK_ChannelsKey);
             RelationalModel.GetOrCreateUniqueConstraints(pK_ChannelsKey).Add(pK_Channels);
             channelsTable.UniqueConstraints.Add("PK_Channels", pK_Channels);
+
+            var videoEntity = FindEntityType("SimpleTube.RestApi.Infrastructure.Database.Entities.VideoEntity")!;
+
+            var defaultTableMappings0 = new List<TableMappingBase<ColumnMappingBase>>();
+            videoEntity.SetRuntimeAnnotation("Relational:DefaultMappings", defaultTableMappings0);
+            var simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityTableBase = new TableBase("SimpleTube.RestApi.Infrastructure.Database.Entities.VideoEntity", null, relationalModel);
+            var channelIdColumnBase = new ColumnBase<ColumnMappingBase>("ChannelId", "TEXT", simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityTableBase);
+            simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityTableBase.Columns.Add("ChannelId", channelIdColumnBase);
+            var descriptionColumnBase = new ColumnBase<ColumnMappingBase>("Description", "TEXT", simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityTableBase);
+            simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityTableBase.Columns.Add("Description", descriptionColumnBase);
+            var idColumnBase0 = new ColumnBase<ColumnMappingBase>("Id", "TEXT", simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityTableBase);
+            simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityTableBase.Columns.Add("Id", idColumnBase0);
+            var publishedAtColumnBase = new ColumnBase<ColumnMappingBase>("PublishedAt", "TEXT", simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityTableBase);
+            simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityTableBase.Columns.Add("PublishedAt", publishedAtColumnBase);
+            var thumbnailColumnBase0 = new ColumnBase<ColumnMappingBase>("Thumbnail", "TEXT", simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityTableBase);
+            simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityTableBase.Columns.Add("Thumbnail", thumbnailColumnBase0);
+            var titleColumnBase = new ColumnBase<ColumnMappingBase>("Title", "TEXT", simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityTableBase);
+            simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityTableBase.Columns.Add("Title", titleColumnBase);
+            relationalModel.DefaultTables.Add("SimpleTube.RestApi.Infrastructure.Database.Entities.VideoEntity", simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityTableBase);
+            var simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityMappingBase = new TableMappingBase<ColumnMappingBase>(videoEntity, simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityTableBase, null);
+            simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityTableBase.AddTypeMapping(simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityMappingBase, false);
+            defaultTableMappings0.Add(simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityMappingBase);
+            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)idColumnBase0, videoEntity.FindProperty("Id")!, simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityMappingBase);
+            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)channelIdColumnBase, videoEntity.FindProperty("ChannelId")!, simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityMappingBase);
+            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)descriptionColumnBase, videoEntity.FindProperty("Description")!, simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityMappingBase);
+            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)publishedAtColumnBase, videoEntity.FindProperty("PublishedAt")!, simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityMappingBase);
+            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)thumbnailColumnBase0, videoEntity.FindProperty("Thumbnail")!, simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityMappingBase);
+            RelationalModel.CreateColumnMapping((ColumnBase<ColumnMappingBase>)titleColumnBase, videoEntity.FindProperty("Title")!, simpleTubeRestApiInfrastructureDatabaseEntitiesVideoEntityMappingBase);
+
+            var tableMappings0 = new List<TableMapping>();
+            videoEntity.SetRuntimeAnnotation("Relational:TableMappings", tableMappings0);
+            var videosTable = new Table("Videos", null, relationalModel);
+            var idColumn0 = new Column("Id", "TEXT", videosTable);
+            videosTable.Columns.Add("Id", idColumn0);
+            idColumn0.Accessors = ColumnAccessorsFactory.CreateGeneric<string>(idColumn0);
+            var channelIdColumn = new Column("ChannelId", "TEXT", videosTable);
+            videosTable.Columns.Add("ChannelId", channelIdColumn);
+            channelIdColumn.Accessors = ColumnAccessorsFactory.CreateGeneric<string>(channelIdColumn);
+            var descriptionColumn = new Column("Description", "TEXT", videosTable);
+            videosTable.Columns.Add("Description", descriptionColumn);
+            descriptionColumn.Accessors = ColumnAccessorsFactory.CreateGeneric<string>(descriptionColumn);
+            var publishedAtColumn = new Column("PublishedAt", "TEXT", videosTable);
+            videosTable.Columns.Add("PublishedAt", publishedAtColumn);
+            publishedAtColumn.Accessors = ColumnAccessorsFactory.CreateGeneric<DateTime>(publishedAtColumn);
+            var thumbnailColumn0 = new Column("Thumbnail", "TEXT", videosTable);
+            videosTable.Columns.Add("Thumbnail", thumbnailColumn0);
+            thumbnailColumn0.Accessors = ColumnAccessorsFactory.CreateGeneric<string>(thumbnailColumn0);
+            var titleColumn = new Column("Title", "TEXT", videosTable);
+            videosTable.Columns.Add("Title", titleColumn);
+            titleColumn.Accessors = ColumnAccessorsFactory.CreateGeneric<string>(titleColumn);
+            relationalModel.Tables.Add(("Videos", null), videosTable);
+            var videosTableMapping = new TableMapping(videoEntity, videosTable, null);
+            videosTable.AddTypeMapping(videosTableMapping, false);
+            tableMappings0.Add(videosTableMapping);
+            RelationalModel.CreateColumnMapping(idColumn0, videoEntity.FindProperty("Id")!, videosTableMapping);
+            RelationalModel.CreateColumnMapping(channelIdColumn, videoEntity.FindProperty("ChannelId")!, videosTableMapping);
+            RelationalModel.CreateColumnMapping(descriptionColumn, videoEntity.FindProperty("Description")!, videosTableMapping);
+            RelationalModel.CreateColumnMapping(publishedAtColumn, videoEntity.FindProperty("PublishedAt")!, videosTableMapping);
+            RelationalModel.CreateColumnMapping(thumbnailColumn0, videoEntity.FindProperty("Thumbnail")!, videosTableMapping);
+            RelationalModel.CreateColumnMapping(titleColumn, videoEntity.FindProperty("Title")!, videosTableMapping);
+            var pK_Videos = new UniqueConstraint("PK_Videos", videosTable, new[] { idColumn0 });
+            videosTable.PrimaryKey = pK_Videos;
+            pK_Videos.SetRowKeyValueFactory(new SimpleRowKeyValueFactory<string>(pK_Videos));
+            var pK_VideosKey = RelationalModel.GetKey(this,
+                "SimpleTube.RestApi.Infrastructure.Database.Entities.VideoEntity",
+                new[] { "Id" });
+            pK_Videos.MappedKeys.Add(pK_VideosKey);
+            RelationalModel.GetOrCreateUniqueConstraints(pK_VideosKey).Add(pK_Videos);
+            videosTable.UniqueConstraints.Add("PK_Videos", pK_Videos);
             return relationalModel.MakeReadOnly();
         }
     }

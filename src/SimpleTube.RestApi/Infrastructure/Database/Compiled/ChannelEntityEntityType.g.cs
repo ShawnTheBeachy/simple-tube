@@ -25,7 +25,7 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
                 "SimpleTube.RestApi.Infrastructure.Database.Entities.ChannelEntity",
                 typeof(ChannelEntity),
                 baseEntityType,
-                propertyCount: 6,
+                propertyCount: 7,
                 keyCount: 1);
 
             var id = runtimeEntityType.AddProperty(
@@ -58,6 +58,35 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
             id.TypeMapping = SqliteStringTypeMapping.Default;
             id.SetCurrentValueComparer(new EntryCurrentValueComparer<string>(id));
 
+            var banner = runtimeEntityType.AddProperty(
+                "Banner",
+                typeof(string),
+                propertyInfo: typeof(ChannelEntity).GetProperty("Banner", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ChannelEntity).GetField("<Banner>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                nullable: true);
+            banner.SetGetter(
+                string (ChannelEntity entity) => ChannelEntityUnsafeAccessors.Banner(entity),
+                bool (ChannelEntity entity) => ChannelEntityUnsafeAccessors.Banner(entity) == null,
+                string (ChannelEntity instance) => ChannelEntityUnsafeAccessors.Banner(instance),
+                bool (ChannelEntity instance) => ChannelEntityUnsafeAccessors.Banner(instance) == null);
+            banner.SetSetter(
+                (ChannelEntity entity, string value) => ChannelEntityUnsafeAccessors.Banner(entity) = value);
+            banner.SetMaterializationSetter(
+                (ChannelEntity entity, string value) => ChannelEntityUnsafeAccessors.Banner(entity) = value);
+            banner.SetAccessors(
+                string (InternalEntityEntry entry) => ChannelEntityUnsafeAccessors.Banner(((ChannelEntity)(entry.Entity))),
+                string (InternalEntityEntry entry) => ChannelEntityUnsafeAccessors.Banner(((ChannelEntity)(entry.Entity))),
+                string (InternalEntityEntry entry) => entry.ReadOriginalValue<string>(banner, 1),
+                string (InternalEntityEntry entry) => entry.GetCurrentValue<string>(banner),
+                object (ValueBuffer valueBuffer) => valueBuffer[1]);
+            banner.SetPropertyIndexes(
+                index: 1,
+                originalValueIndex: 1,
+                shadowIndex: -1,
+                relationshipIndex: -1,
+                storeGenerationIndex: -1);
+            banner.TypeMapping = SqliteStringTypeMapping.Default;
+
             var createdAt = runtimeEntityType.AddProperty(
                 "CreatedAt",
                 typeof(DateTimeOffset),
@@ -76,12 +105,12 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
             createdAt.SetAccessors(
                 DateTimeOffset (InternalEntityEntry entry) => AuditableEntityUnsafeAccessors.CreatedAt(((ChannelEntity)(entry.Entity))),
                 DateTimeOffset (InternalEntityEntry entry) => AuditableEntityUnsafeAccessors.CreatedAt(((ChannelEntity)(entry.Entity))),
-                DateTimeOffset (InternalEntityEntry entry) => entry.ReadOriginalValue<DateTimeOffset>(createdAt, 1),
+                DateTimeOffset (InternalEntityEntry entry) => entry.ReadOriginalValue<DateTimeOffset>(createdAt, 2),
                 DateTimeOffset (InternalEntityEntry entry) => entry.GetCurrentValue<DateTimeOffset>(createdAt),
-                object (ValueBuffer valueBuffer) => valueBuffer[1]);
+                object (ValueBuffer valueBuffer) => valueBuffer[2]);
             createdAt.SetPropertyIndexes(
-                index: 1,
-                originalValueIndex: 1,
+                index: 2,
+                originalValueIndex: 2,
                 shadowIndex: -1,
                 relationshipIndex: -1,
                 storeGenerationIndex: -1);
@@ -104,12 +133,12 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
             handle.SetAccessors(
                 string (InternalEntityEntry entry) => ChannelEntityUnsafeAccessors.Handle(((ChannelEntity)(entry.Entity))),
                 string (InternalEntityEntry entry) => ChannelEntityUnsafeAccessors.Handle(((ChannelEntity)(entry.Entity))),
-                string (InternalEntityEntry entry) => entry.ReadOriginalValue<string>(handle, 2),
+                string (InternalEntityEntry entry) => entry.ReadOriginalValue<string>(handle, 3),
                 string (InternalEntityEntry entry) => entry.GetCurrentValue<string>(handle),
-                object (ValueBuffer valueBuffer) => valueBuffer[2]);
+                object (ValueBuffer valueBuffer) => valueBuffer[3]);
             handle.SetPropertyIndexes(
-                index: 2,
-                originalValueIndex: 2,
+                index: 3,
+                originalValueIndex: 3,
                 shadowIndex: -1,
                 relationshipIndex: -1,
                 storeGenerationIndex: -1);
@@ -133,12 +162,12 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
             lastModifiedAt.SetAccessors(
                 DateTimeOffset (InternalEntityEntry entry) => AuditableEntityUnsafeAccessors.LastModifiedAt(((ChannelEntity)(entry.Entity))),
                 DateTimeOffset (InternalEntityEntry entry) => AuditableEntityUnsafeAccessors.LastModifiedAt(((ChannelEntity)(entry.Entity))),
-                DateTimeOffset (InternalEntityEntry entry) => entry.ReadOriginalValue<DateTimeOffset>(lastModifiedAt, 3),
+                DateTimeOffset (InternalEntityEntry entry) => entry.ReadOriginalValue<DateTimeOffset>(lastModifiedAt, 4),
                 DateTimeOffset (InternalEntityEntry entry) => entry.GetCurrentValue<DateTimeOffset>(lastModifiedAt),
-                object (ValueBuffer valueBuffer) => valueBuffer[3]);
+                object (ValueBuffer valueBuffer) => valueBuffer[4]);
             lastModifiedAt.SetPropertyIndexes(
-                index: 3,
-                originalValueIndex: 3,
+                index: 4,
+                originalValueIndex: 4,
                 shadowIndex: -1,
                 relationshipIndex: -1,
                 storeGenerationIndex: -1);
@@ -161,12 +190,12 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
             name.SetAccessors(
                 string (InternalEntityEntry entry) => ChannelEntityUnsafeAccessors.Name(((ChannelEntity)(entry.Entity))),
                 string (InternalEntityEntry entry) => ChannelEntityUnsafeAccessors.Name(((ChannelEntity)(entry.Entity))),
-                string (InternalEntityEntry entry) => entry.ReadOriginalValue<string>(name, 4),
+                string (InternalEntityEntry entry) => entry.ReadOriginalValue<string>(name, 5),
                 string (InternalEntityEntry entry) => entry.GetCurrentValue<string>(name),
-                object (ValueBuffer valueBuffer) => valueBuffer[4]);
+                object (ValueBuffer valueBuffer) => valueBuffer[5]);
             name.SetPropertyIndexes(
-                index: 4,
-                originalValueIndex: 4,
+                index: 5,
+                originalValueIndex: 5,
                 shadowIndex: -1,
                 relationshipIndex: -1,
                 storeGenerationIndex: -1);
@@ -189,12 +218,12 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
             thumbnail.SetAccessors(
                 string (InternalEntityEntry entry) => ChannelEntityUnsafeAccessors.Thumbnail(((ChannelEntity)(entry.Entity))),
                 string (InternalEntityEntry entry) => ChannelEntityUnsafeAccessors.Thumbnail(((ChannelEntity)(entry.Entity))),
-                string (InternalEntityEntry entry) => entry.ReadOriginalValue<string>(thumbnail, 5),
+                string (InternalEntityEntry entry) => entry.ReadOriginalValue<string>(thumbnail, 6),
                 string (InternalEntityEntry entry) => entry.GetCurrentValue<string>(thumbnail),
-                object (ValueBuffer valueBuffer) => valueBuffer[5]);
+                object (ValueBuffer valueBuffer) => valueBuffer[6]);
             thumbnail.SetPropertyIndexes(
-                index: 5,
-                originalValueIndex: 5,
+                index: 6,
+                originalValueIndex: 6,
                 shadowIndex: -1,
                 relationshipIndex: -1,
                 storeGenerationIndex: -1);
@@ -210,6 +239,7 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
         public static void CreateAnnotations(RuntimeEntityType runtimeEntityType)
         {
             var id = runtimeEntityType.FindProperty("Id");
+            var banner = runtimeEntityType.FindProperty("Banner");
             var createdAt = runtimeEntityType.FindProperty("CreatedAt");
             var handle = runtimeEntityType.FindProperty("Handle");
             var lastModifiedAt = runtimeEntityType.FindProperty("LastModifiedAt");
@@ -222,7 +252,7 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
                 ISnapshot (InternalEntityEntry source) =>
                 {
                     var entity = ((ChannelEntity)(source.Entity));
-                    return ((ISnapshot)(new Snapshot<string, DateTimeOffset, string, DateTimeOffset, string, string>((source.GetCurrentValue<string>(id) == null ? null : ((ValueComparer<string>)(((IProperty)id).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(id))), ((ValueComparer<DateTimeOffset>)(((IProperty)createdAt).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTimeOffset>(createdAt)), (source.GetCurrentValue<string>(handle) == null ? null : ((ValueComparer<string>)(((IProperty)handle).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(handle))), ((ValueComparer<DateTimeOffset>)(((IProperty)lastModifiedAt).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTimeOffset>(lastModifiedAt)), (source.GetCurrentValue<string>(name) == null ? null : ((ValueComparer<string>)(((IProperty)name).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(name))), (source.GetCurrentValue<string>(thumbnail) == null ? null : ((ValueComparer<string>)(((IProperty)thumbnail).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(thumbnail))))));
+                    return ((ISnapshot)(new Snapshot<string, string, DateTimeOffset, string, DateTimeOffset, string, string>((source.GetCurrentValue<string>(id) == null ? null : ((ValueComparer<string>)(((IProperty)id).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(id))), (source.GetCurrentValue<string>(banner) == null ? null : ((ValueComparer<string>)(((IProperty)banner).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(banner))), ((ValueComparer<DateTimeOffset>)(((IProperty)createdAt).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTimeOffset>(createdAt)), (source.GetCurrentValue<string>(handle) == null ? null : ((ValueComparer<string>)(((IProperty)handle).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(handle))), ((ValueComparer<DateTimeOffset>)(((IProperty)lastModifiedAt).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTimeOffset>(lastModifiedAt)), (source.GetCurrentValue<string>(name) == null ? null : ((ValueComparer<string>)(((IProperty)name).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(name))), (source.GetCurrentValue<string>(thumbnail) == null ? null : ((ValueComparer<string>)(((IProperty)thumbnail).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(thumbnail))))));
                 });
             runtimeEntityType.SetStoreGeneratedValuesFactory(
                 ISnapshot () => Snapshot.Empty);
@@ -239,10 +269,10 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
                     return ((ISnapshot)(new Snapshot<string>((source.GetCurrentValue<string>(id) == null ? null : ((ValueComparer<string>)(((IProperty)id).GetKeyValueComparer())).Snapshot(source.GetCurrentValue<string>(id))))));
                 });
             runtimeEntityType.Counts = new PropertyCounts(
-                propertyCount: 6,
+                propertyCount: 7,
                 navigationCount: 0,
                 complexPropertyCount: 0,
-                originalValueCount: 6,
+                originalValueCount: 7,
                 shadowCount: 0,
                 relationshipCount: 1,
                 storeGeneratedCount: 0);

@@ -9,12 +9,13 @@ public sealed record ChannelByHandleQuery : IQuery<ChannelByHandleQuery.Result>
 
     public sealed record Result
     {
-        public required string ChannelHandle { get; init; }
-        public required string ChannelId { get; init; }
-        public required string ChannelName { get; init; }
-        public required string ChannelThumbnail { get; init; }
+        public string? Banner { get; init; }
         public required DateTimeOffset CreatedAt { get; init; }
+        public required string Handle { get; init; }
+        public required string Id { get; init; }
         public required DateTimeOffset LastModifiedAt { get; init; }
+        public required string Name { get; init; }
+        public required string Thumbnail { get; init; }
     }
 
     public sealed class Validator : AbstractValidator<ChannelByHandleQuery>

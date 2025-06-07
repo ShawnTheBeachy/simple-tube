@@ -1,0 +1,45 @@
+﻿.header {
+    display: flex;
+    position: relative;
+}
+
+.header img[alt='Banner'] {
+    height: 100%;
+    inset: 0;
+    object-fit: cover;
+    object-position: center;
+    opacity: 15%;
+    position: absolute;
+    width: 100%;
+}
+
+.header .container {
+    display: flex;
+    flex-direction: row;
+    padding: calc(var(--spacing) * 8);
+    z-index: 1;
+}
+
+.header .thumbnail {
+    height: calc(var(--spacing) * 40);
+    border: var(--color-white) solid calc(var(--spacing) * 1);
+    border-radius: 100%;
+    box-shadow: 0 10px 15px -3px #181818, 0 4px 6px -4px #181818;
+    width: calc(var(--spacing) * 40);
+}
+
+.header .container div {
+    margin-left: calc(var(--spacing) * 12);
+}
+
+.header .container h1 {
+    color: var(--color-white);
+    font-size: var(--text-5xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: calc(var(--spacing) * 6);
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+}

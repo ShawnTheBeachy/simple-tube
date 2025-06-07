@@ -14,7 +14,7 @@ internal static class HttpClientExtensions
         CancellationToken cancellationToken
     ) =>
         await httpClient.Send(
-            $"channels?forHandle={forHandle}&part=snippet",
+            $"channels?forHandle={forHandle}&part=snippet,brandingSettings",
             YouTubeJsonSerializerContext.Default.ListResponseChannel,
             cancellationToken
         );
@@ -54,7 +54,6 @@ internal static class HttpClientExtensions
             cancellationToken
         );
         response.EnsureSuccessStatusCode();
-        var x = await response.Content.ReadAsStringAsync(cancellationToken);
         var tr = await JsonSerializer.DeserializeAsync(
             await response.Content.ReadAsStreamAsync(cancellationToken),
             jsonTypeInfo,
@@ -64,6 +63,7 @@ internal static class HttpClientExtensions
     }
 }
 
+[JsonSerializable(typeof(BrandingSettings))]
 [JsonSerializable(typeof(Channel))]
 [JsonSerializable(typeof(ChannelSnippet))]
 [JsonSerializable(typeof(ListResponse<Channel>))]

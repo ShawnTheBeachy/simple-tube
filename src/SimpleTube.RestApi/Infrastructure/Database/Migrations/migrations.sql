@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS [Channels]
 (
+    [Banner]         VARCHAR      NULL,
     [CreatedAt]      INT          NOT NULL,
     [Favorite]       INT          NOT NULL DEFAULT 0,
     [Handle]         VARCHAR(250) NOT NULL,
@@ -11,6 +12,7 @@ CREATE TABLE IF NOT EXISTS [Channels]
 WITHOUT ROWID;
 
 ALTER TABLE [Channels] ADD COLUMN [Favorite] INT NOT NULL DEFAULT 0;
+ALTER TABLE [Channels] ADD COLUMN [Banner] VARCHAR;
 ALTER TABLE [Channels] RENAME [ChannelHandle] TO [Handle];
 ALTER TABLE [Channels] RENAME [ChannelId] TO [Id];
 ALTER TABLE [Channels] RENAME [ChannelName] TO [Name];

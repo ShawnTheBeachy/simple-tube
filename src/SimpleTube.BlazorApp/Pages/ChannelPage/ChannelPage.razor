@@ -1,0 +1,30 @@
+﻿@page "/channels/{channelHandle}"
+
+<PageTitle>
+    @(ChannelInfo?.Name ?? ChannelHandle)
+</PageTitle>
+
+@if (ChannelInfo is null)
+{
+    return;
+}
+
+<div class="page">
+    <div class="header">
+        @if (ChannelInfo.Banner is not null)
+        {
+            <img alt="Banner"
+                 src="@ChannelInfo.Banner" />
+        }
+        <div class="container">
+            <img alt="Channel thumbnail"
+                 class="thumbnail"
+                 src="@ChannelInfo.Thumbnail" />
+            <div class="col">
+                <h1>
+                    @ChannelInfo.Name
+                </h1>
+            </div>
+        </div>
+    </div>
+</div>

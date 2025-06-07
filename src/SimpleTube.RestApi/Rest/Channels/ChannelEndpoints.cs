@@ -53,13 +53,14 @@ internal static class ChannelEndpoints
                     );
                     return new Channel
                     {
-                        Handle = result.ChannelHandle,
-                        Id = result.ChannelId,
-                        Name = result.ChannelName,
-                        Thumbnail = result.ChannelThumbnail,
+                        Banner = result.Banner,
+                        Handle = result.Handle,
+                        Id = result.Id,
+                        Name = result.Name,
+                        Thumbnail = result.Thumbnail,
                         CreatedAt = result.CreatedAt,
                         LastModifiedAt = result.LastModifiedAt,
-                        Url = $"{groupName}/{result.ChannelHandle}",
+                        Url = $"{groupName}/{result.Handle}",
                     };
                 }
             )
@@ -81,6 +82,7 @@ internal static class ChannelEndpoints
                     );
                     return new Channel
                     {
+                        Banner = result.ChannelBanner,
                         Handle = result.ChannelHandle,
                         Id = result.ChannelId,
                         Name = result.ChannelName,
