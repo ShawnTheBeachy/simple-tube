@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SimpleTube.RestApi.Commands;
+using SimpleTube.RestApi.Extensions;
 using SimpleTube.RestApi.Infrastructure.Mediator;
 using SimpleTube.RestApi.Queries;
 using SimpleTube.RestApi.Rest.Videos;
@@ -15,7 +16,11 @@ internal static class ChannelEndpoints
         group
             .MapGet(
                 "/",
-                async (IMediator mediator, CancellationToken cancellationToken) =>
+                async (
+                    IMediator mediator,
+                    IHttpContextAccessor httpContextAccessor,
+                    CancellationToken cancellationToken
+                ) =>
                 {
                     var result = await mediator.Query<ChannelsQuery, ChannelsQuery.Result>(
                         new ChannelsQuery(),
@@ -27,7 +32,9 @@ internal static class ChannelEndpoints
                             Handle = channel.ChannelHandle,
                             Id = channel.ChannelId,
                             Name = channel.ChannelName,
-                            Thumbnail = channel.ChannelThumbnail,
+                            Thumbnail = channel.ChannelThumbnail.ServerImageUrl(
+                                httpContextAccessor
+                            ),
                             UnwatchedVideos = channel.UnwatchedVideos,
                             Url = $"{groupName}/{channel.ChannelHandle}",
                         })
@@ -42,6 +49,7 @@ internal static class ChannelEndpoints
                 async (
                     string channelHandle,
                     IMediator mediator,
+                    IHttpContextAccessor httpContextAccessor,
                     CancellationToken cancellationToken
                 ) =>
                 {
@@ -54,11 +62,11 @@ internal static class ChannelEndpoints
                     );
                     return new Channel
                     {
-                        Banner = result.Banner,
+                        Banner = result.Banner.ServerImageUrl(httpContextAccessor),
                         Handle = result.Handle,
                         Id = result.Id,
                         Name = result.Name,
-                        Thumbnail = result.Thumbnail,
+                        Thumbnail = result.Thumbnail.ServerImageUrl(httpContextAccessor),
                         CreatedAt = result.CreatedAt,
                         LastModifiedAt = result.LastModifiedAt,
                         Url = $"{groupName}/{result.Handle}",
@@ -74,6 +82,7 @@ internal static class ChannelEndpoints
                 async (
                     string channelHandle,
                     IMediator mediator,
+                    IHttpContextAccessor httpContextAccessor,
                     CancellationToken cancellationToken
                 ) =>
                 {
@@ -86,7 +95,7 @@ internal static class ChannelEndpoints
                         {
                             Id = video.Id,
                             PublishedAt = video.PublishedAt,
-                            Thumbnail = video.Thumbnail,
+                            Thumbnail = video.Thumbnail.ServerImageUrl(httpContextAccessor),
                             Title = video.Title,
                             Url = $"/videos/{video.Id}",
                         })
@@ -102,6 +111,7 @@ internal static class ChannelEndpoints
                 async (
                     [FromBody] SubscribeCommand command,
                     IMediator mediator,
+                    IHttpContextAccessor httpContextAccessor,
                     CancellationToken cancellationToken
                 ) =>
                 {
@@ -111,11 +121,11 @@ internal static class ChannelEndpoints
                     );
                     return new Channel
                     {
-                        Banner = result.ChannelBanner,
+                        Banner = result.ChannelBanner.ServerImageUrl(httpContextAccessor),
                         Handle = result.ChannelHandle,
                         Id = result.ChannelId,
                         Name = result.ChannelName,
-                        Thumbnail = result.ChannelThumbnail,
+                        Thumbnail = result.ChannelThumbnail.ServerImageUrl(httpContextAccessor),
                         Url = $"{groupName}/{result.ChannelHandle}",
                     };
                 }

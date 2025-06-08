@@ -19,11 +19,14 @@
         <div class="container">
             <img alt="Channel thumbnail"
                  class="thumbnail"
-                 src="@ChannelInfo.Thumbnail" />
+                 src="@ChannelInfo.Thumbnail?dpr=150" />
             <div class="col">
                 <h1>
                     @ChannelInfo.Name
                 </h1>
+                <p class="channel-handle">
+                    @@@ChannelInfo.Handle
+                </p>
             </div>
         </div>
     </div>

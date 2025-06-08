@@ -8,6 +8,20 @@ namespace SimpleTube.RestApi.Infrastructure.YouTube;
 
 internal static class HttpClientExtensions
 {
+    public static async ValueTask<Channel> GetChannelById(
+        this HttpClient httpClient,
+        string id,
+        CancellationToken cancellationToken
+    )
+    {
+        var response = await httpClient.Send(
+            $"channels?id={id}&part=snippet,brandingSettings",
+            YouTubeJsonSerializerContext.Default.ListResponseChannel,
+            cancellationToken
+        );
+        return response.Items[0];
+    }
+
     public static async ValueTask<ListResponse<Channel>> ListChannels(
         this HttpClient httpClient,
         string forHandle,

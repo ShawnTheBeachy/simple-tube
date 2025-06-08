@@ -2,7 +2,7 @@
 using SimpleTube.RestApi.Infrastructure.Database;
 using SimpleTube.RestApi.Infrastructure.Mediator;
 
-namespace SimpleTube.RestApi.Commands;
+namespace SimpleTube.RestApi.Commands.Internal;
 
 internal sealed class UnsubscribeCommandHandler
     : ICommandHandler<UnsubscribeCommand, UnsubscribeCommand.Result>

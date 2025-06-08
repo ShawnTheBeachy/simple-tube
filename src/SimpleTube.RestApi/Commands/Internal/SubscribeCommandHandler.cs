@@ -7,7 +7,7 @@ using SimpleTube.RestApi.Infrastructure.YouTube.Models;
 using SimpleTube.RestApi.Messages;
 using SlimMessageBus;
 
-namespace SimpleTube.RestApi.Commands;
+namespace SimpleTube.RestApi.Commands.Internal;
 
 internal sealed class SubscribeCommandHandler
     : ICommandHandler<SubscribeCommand, SubscribeCommand.Result>
@@ -57,9 +57,7 @@ internal sealed class SubscribeCommandHandler
         var channelInfo = await GetChannelInfo(command, cancellationToken);
         channel = new ChannelEntity
         {
-            Banner = channelInfo.BrandingSettings?.Image.BannerUrl is null
-                ? null
-                : $"{channelInfo.BrandingSettings.Image.BannerUrl}=w2120-fcrop64=1,00000000ffffffff-k-c0xffffffff-no-nd-rj",
+            Banner = channelInfo.BrandingSettings?.Image?.BannerUrl,
             Handle = command.ChannelHandle,
             Id = channelInfo.Id,
             Name = channelInfo.Snippet.Title,

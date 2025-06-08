@@ -3,14 +3,15 @@
 <PageTitle>Channels</PageTitle>
 
 <div class="container">
+    <Subscribe />
     <ul>
         @foreach (var channel in Channels)
         {
-            <li>
+            <li @key="@channel.Id">
                 <a href="@channel.Url">
                     <img alt="Channel thumbnail"
                          class="thumbnail"
-                         src="@channel.Thumbnail" />
+                         src="@channel.Thumbnail?dpr=75" />
                     <div class="channel-info">
                         <h4 class="channel-name">
                             @channel.Name

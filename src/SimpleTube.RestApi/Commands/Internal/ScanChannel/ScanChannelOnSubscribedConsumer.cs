@@ -2,13 +2,13 @@
 using SimpleTube.RestApi.Messages;
 using SlimMessageBus;
 
-namespace SimpleTube.RestApi.Commands;
+namespace SimpleTube.RestApi.Commands.Internal.ScanChannel;
 
-internal sealed class ScanChannelOnSubscriptionConsumer : IConsumer<SubscribedToChannelMessage>
+internal sealed class ScanChannelOnSubscribedConsumer : IConsumer<SubscribedToChannelMessage>
 {
     private readonly IMediator _mediator;
 
-    public ScanChannelOnSubscriptionConsumer(IMediator mediator)
+    public ScanChannelOnSubscribedConsumer(IMediator mediator)
     {
         _mediator = mediator;
     }

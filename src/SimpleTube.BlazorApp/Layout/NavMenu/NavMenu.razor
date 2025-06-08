@@ -20,11 +20,11 @@
 
 @code
 {
-    private static RenderFragment? GetIcon(string url, string? iconUrl) =>
+    private RenderFragment? GetIcon(string url, string? iconUrl) =>
         iconUrl is not null
             ? @<img alt="Icon"
                     class="icon"
-                    src="@iconUrl" />
+                    src="@($"{_serverUrlProvider.ServerUrl}{iconUrl}?dpr=75")" />
             : url switch
             {
                 "/channels" => @<svg class="icon"

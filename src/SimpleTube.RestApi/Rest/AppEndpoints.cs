@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 using SimpleTube.RestApi.Infrastructure.Database;
+using SimpleTube.RestApi.Infrastructure.Images;
 using SimpleTube.RestApi.Rest.Channels;
 
 namespace SimpleTube.RestApi.Rest;
@@ -51,7 +52,7 @@ internal static class AppEndpoints
                     {
                         var bookmark = new Bookmark
                         {
-                            IconUrl = reader.GetString(2),
+                            IconUrl = reader.GetString(2).ImageUrl(),
                             Name = reader.GetString(1),
                             Url = $"/channels/{reader.GetString(0)}",
                         };

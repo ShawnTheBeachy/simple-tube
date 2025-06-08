@@ -1,6 +1,5 @@
 html,
 body {
-    font-family: var(--font-sans);
     height: 100%;
     margin: 0;
     overflow: hidden;
@@ -16,12 +15,14 @@ a {
     text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, p {
     margin: 0;
 }
 
 :root {
     color-scheme: dark;
+    font-family: Inter, sans-serif;
+    font-feature-settings: 'liga' 1, 'calt' 1;
 
     --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -273,7 +274,14 @@ h1, h2, h3, h4, h5, h6 {
     --color-black: #000;
     --color-white: #fff;
 
+    --breakpoint-sm: 40rem;
+    --breakpoint-md: 48rem;
+    --breakpoint-lg: 64rem;
+    --breakpoint-xl: 80rem;
+    --breakpoint-2xl: 96rem;
+
     --spacing: 0.25rem;
+
     --container-3xs: 16rem;
     --container-2xs: 18rem;
     --container-xs: 20rem;
@@ -287,6 +295,7 @@ h1, h2, h3, h4, h5, h6 {
     --container-5xl: 64rem;
     --container-6xl: 72rem;
     --container-7xl: 80rem;
+
     --text-xs: 0.75rem;
     --text-xs--line-height: calc(1 / 0.75);
     --text-sm: 0.875rem;
@@ -336,6 +345,15 @@ h1, h2, h3, h4, h5, h6 {
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
     --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+}
+
+@supports (font-variation-settings: normal) {
+    :root {
+        font-family: InterVariable, sans-serif;
+
+        --font-sans: "InterVariable", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    }
 }
 
 #blazor-error-ui {

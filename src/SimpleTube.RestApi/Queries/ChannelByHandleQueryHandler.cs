@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using SimpleTube.RestApi.Exceptions;
 using SimpleTube.RestApi.Infrastructure.Database;
+using SimpleTube.RestApi.Infrastructure.Images;
 using SimpleTube.RestApi.Infrastructure.Mediator;
 
 namespace SimpleTube.RestApi.Queries;
@@ -48,8 +49,8 @@ internal sealed class ChannelByHandleQueryHandler
                 Handle = reader.GetString(0),
                 Id = reader.GetString(1),
                 Name = reader.GetString(2),
-                Thumbnail = reader.GetString(3),
-                Banner = reader.IsDBNull(4) ? null : reader.GetString(4),
+                Thumbnail = reader.GetString(3).ImageUrl(),
+                Banner = reader.IsDBNull(4) ? null : reader.GetString(4).ImageUrl(),
                 CreatedAt = DateTimeOffset.FromUnixTimeSeconds(reader.GetInt64(5)),
                 LastModifiedAt = DateTimeOffset.FromUnixTimeSeconds(reader.GetInt64(6)),
             };

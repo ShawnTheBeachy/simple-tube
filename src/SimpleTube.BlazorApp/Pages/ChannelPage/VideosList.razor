@@ -4,7 +4,7 @@
     <ul>
         @foreach (var video in Videos)
         {
-            <li>
+            <li @key="@video.Id">
                 <a href="@video.Url">
                     <div class="video-thumbnail"
                          style="background:url('@video.Thumbnail') center/cover no-repeat;"></div>

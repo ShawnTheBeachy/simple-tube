@@ -1,9 +1,12 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using FluentValidation;
+using Microsoft.AspNetCore.ResponseCompression;
 using SimpleTube.RestApi.Commands;
+using SimpleTube.RestApi.Commands.Internal;
 using SimpleTube.RestApi.Exceptions;
 using SimpleTube.RestApi.Infrastructure;
+using SimpleTube.RestApi.Infrastructure.Images;
 using SimpleTube.RestApi.Infrastructure.Mediator;
 using SimpleTube.RestApi.Queries;
 using SimpleTube.RestApi.Rest;
@@ -30,7 +33,15 @@ builder.Services.AddSlimMessageBus(opts =>
 });
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddOpenApi();
-builder.Services.AddResponseCaching().AddResponseCompression().AddOutputCache();
+builder.Services.AddResponseCompression(opts =>
+{
+    opts.EnableForHttps = true;
+    opts.Providers.Add<BrotliCompressionProvider>();
+    opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+        ["application/octet-stream", "font/woff2"]
+    );
+});
+builder.Services.AddResponseCaching().AddOutputCache();
 builder.Services.ConfigureHttpJsonOptions(options =>
 {
     options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
@@ -59,6 +70,7 @@ app.UseCors(cors => cors.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 app.UseOutputCache();
 app.UseResponseCaching();
 app.UseResponseCompression();
+app.UseImages();
 app.UseStaticFiles();
 app.MapAppEndpoints().MapOpenApi();
 app.Run();

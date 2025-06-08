@@ -1,5 +1,9 @@
 ﻿.container {
     container-type: inline-size;
+    display: flex;
+    flex-direction: column;
+    padding: calc(var(--spacing) * 8);
+    row-gap: calc(var(--spacing) * 6);
 }
 
 ul {
@@ -7,7 +11,6 @@ ul {
     display: grid;
     grid-gap: calc(var(--spacing) * 6);
     grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
-    padding: calc(var(--spacing) * 8);
 }
 
 @container (min-width: 24rem) {
@@ -66,9 +69,9 @@ img.thumbnail {
 
 .channel-handle {
     color: var(--color-gray-400);
-    font-size: var(--text-xs);
+    font-size: var(--text-sm);
     font-weight: var(--font-weight-normal);
-    line-height: calc(var(--spacing) * 6);
+    line-height: var(--text-sm--line-height);
 }
 
 .relative {

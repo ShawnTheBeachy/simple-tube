@@ -1,4 +1,6 @@
-﻿namespace SimpleTube.BlazorApp.Infrastructure.Api;
+﻿using SimpleTube.BlazorApp.Providers;
+
+namespace SimpleTube.BlazorApp.Infrastructure.Api;
 
 internal static class ApiClient
 {
@@ -8,9 +10,9 @@ internal static class ApiClient
     {
         services.AddHttpClient(
             ClientName,
-            client =>
+            (sp, client) =>
             {
-                client.BaseAddress = new Uri("http://localhost:5190/");
+                client.BaseAddress = new Uri(sp.GetRequiredService<ServerUrlProvider>().ServerUrl);
             }
         );
         return services;

@@ -7,10 +7,7 @@ public sealed record ScanChannelCommand : ICommand<ScanChannelCommand.Result>
 {
     public required string ChannelId { get; init; }
 
-    public sealed record Result
-    {
-        public required bool ScanStarted { get; init; }
-    }
+    public sealed record Result;
 
     public sealed class Validator : AbstractValidator<ScanChannelCommand>
     {

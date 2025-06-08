@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 using SimpleTube.RestApi.Infrastructure.Database;
+using SimpleTube.RestApi.Infrastructure.Images;
 using SimpleTube.RestApi.Infrastructure.Mediator;
 
 namespace SimpleTube.RestApi.Queries;
@@ -55,7 +56,7 @@ internal sealed class ChannelsQueryHandler : IQueryHandler<ChannelsQuery, Channe
                     ChannelHandle = reader.GetString(0),
                     ChannelId = reader.GetString(1),
                     ChannelName = reader.GetString(2),
-                    ChannelThumbnail = reader.GetString(3),
+                    ChannelThumbnail = reader.GetString(3).ImageUrl(),
                     UnwatchedVideos = reader.GetInt16(4),
                 }
             );
