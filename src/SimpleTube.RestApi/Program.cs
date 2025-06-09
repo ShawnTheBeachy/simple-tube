@@ -8,7 +8,6 @@ using SimpleTube.RestApi.Exceptions;
 using SimpleTube.RestApi.Infrastructure;
 using SimpleTube.RestApi.Infrastructure.Images;
 using SimpleTube.RestApi.Infrastructure.Mediator;
-using SimpleTube.RestApi.Queries;
 using SimpleTube.RestApi.Queries.Internal;
 using SimpleTube.RestApi.Rest;
 using SimpleTube.RestApi.Rest.Channels;

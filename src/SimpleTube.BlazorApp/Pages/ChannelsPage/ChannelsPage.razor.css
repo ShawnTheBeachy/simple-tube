@@ -37,9 +37,11 @@ li:hover {
 li a {
     align-items: center;
     display: flex;
+    column-gap: calc(var(--spacing) * 2);
     flex-direction: row;
     overflow: hidden;
     padding-right: calc(var(--spacing) * 3.5);
+    width: 100%;
 }
 
 img.thumbnail {

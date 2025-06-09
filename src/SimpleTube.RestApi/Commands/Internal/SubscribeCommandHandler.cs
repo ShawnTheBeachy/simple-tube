@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
+using SimpleTube.RestApi.Exceptions;
 using SimpleTube.RestApi.Infrastructure.Database;
 using SimpleTube.RestApi.Infrastructure.Database.Entities;
 using SimpleTube.RestApi.Infrastructure.Mediator;
@@ -88,6 +89,10 @@ internal sealed class SubscribeCommandHandler
         var response = await _httpClientFactory
             .CreateYouTubeClient()
             .ListChannels(command.ChannelHandle, cancellationToken);
+
+        if (response.Items.Count < 1)
+            throw new NotFoundException();
+
         return response.Items[0];
     }
 

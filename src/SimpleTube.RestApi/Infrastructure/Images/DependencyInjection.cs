@@ -44,7 +44,7 @@ internal static class DependencyInjection
         var imageOptions = app.ApplicationServices.GetRequiredService<IOptions<ImageOptions>>();
         app.UseImageflow(
             new ImageflowMiddlewareOptions()
-                .SetMapWebRoot(true)
+                .SetMapWebRoot(false)
                 .MapPath("/images", imageOptions.Value.Location)
                 .SetAllowCaching(true)
                 .SetMyOpenSourceProjectUrl("https://github.com/ShawnTheBeachy/simple-tube")
