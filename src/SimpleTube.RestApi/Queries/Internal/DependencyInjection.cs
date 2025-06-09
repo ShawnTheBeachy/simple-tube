@@ -1,6 +1,6 @@
 ﻿using SimpleTube.RestApi.Infrastructure.Mediator;
 
-namespace SimpleTube.RestApi.Queries;
+namespace SimpleTube.RestApi.Queries.Internal;
 
 internal static class DependencyInjection
 {

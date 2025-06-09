@@ -4,7 +4,7 @@ using SimpleTube.RestApi.Infrastructure.Database;
 using SimpleTube.RestApi.Infrastructure.Images;
 using SimpleTube.RestApi.Infrastructure.Mediator;
 
-namespace SimpleTube.RestApi.Queries;
+namespace SimpleTube.RestApi.Queries.Internal;
 
 internal sealed class ChannelByHandleQueryHandler
     : IQueryHandler<ChannelByHandleQuery, ChannelByHandleQuery.Result>

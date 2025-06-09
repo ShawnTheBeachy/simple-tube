@@ -2,7 +2,7 @@
 using SimpleTube.RestApi.Infrastructure.Database;
 using SimpleTube.RestApi.Infrastructure.Mediator;
 
-namespace SimpleTube.RestApi.Queries;
+namespace SimpleTube.RestApi.Queries.Internal;
 
 internal sealed class ChannelVideosQueryHandler
     : IQueryHandler<ChannelVideosQuery, ChannelVideosQuery.Result>
@@ -18,6 +18,7 @@ internal sealed class ChannelVideosQueryHandler
         INNER JOIN [Channels]
             ON [Channels].[Id] = [Videos].[ChannelId]
             AND [Channels].[Handle] = @channelHandle
+        WHERE [Videos].[Ignored] = 0
         ORDER BY [PublishedAt] DESC
         """;
 
