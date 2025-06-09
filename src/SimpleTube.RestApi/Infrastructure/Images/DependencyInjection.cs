@@ -7,14 +7,15 @@ namespace SimpleTube.RestApi.Infrastructure.Images;
 
 internal static class DependencyInjection
 {
-    public static IServiceCollection AddImages(
-        this IServiceCollection services,
-        IConfiguration configuration
-    )
+    public static IServiceCollection AddImages(this IServiceCollection services)
     {
+        var imageFolder = AppData.GetFolder("images");
         services
             .AddOptions<ImageOptions>()
-            .Bind(configuration.GetRequiredSection(ImageOptions.SectionName))
+            .Configure(opts =>
+            {
+                opts.Location = imageFolder;
+            })
             .ValidateWithFluentValidation()
             .ValidateOnStart();
         services.AddTransient<IImageService, ImageService>();

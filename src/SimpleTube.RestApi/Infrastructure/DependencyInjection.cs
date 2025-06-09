@@ -10,10 +10,5 @@ internal static class DependencyInjection
     public static IServiceCollection AddInfrastructure(
         this IServiceCollection services,
         IConfiguration configuration
-    ) =>
-        services
-            .AddDatabase(configuration)
-            .AddImages(configuration)
-            .AddTasks()
-            .AddYouTube(configuration);
+    ) => services.AddDatabase().AddImages().AddTasks().AddYouTube(configuration);
 }
