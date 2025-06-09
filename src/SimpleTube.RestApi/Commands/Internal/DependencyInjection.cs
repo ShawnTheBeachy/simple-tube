@@ -14,6 +14,10 @@ internal static class DependencyInjection
             >()
             .AddScoped<DownloadChannelImagesOnSubscribedConsumer>()
             .AddTransient<
+                ICommandHandler<IgnoreVideoCommand, IgnoreVideoCommand.Result>,
+                IgnoreVideoCommandHandler
+            >()
+            .AddTransient<
                 ICommandHandler<ScanChannelCommand, ScanChannelCommand.Result>,
                 ScanChannelCommandHandler
             >()

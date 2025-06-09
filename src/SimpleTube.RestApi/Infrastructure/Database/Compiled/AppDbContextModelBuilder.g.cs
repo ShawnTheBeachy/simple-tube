@@ -15,7 +15,7 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
     public partial class AppDbContextModel
     {
         private AppDbContextModel()
-            : base(skipDetectChanges: false, modelId: new Guid("86f38f03-202e-45ef-b74e-046934917c17"), entityTypeCount: 2)
+            : base(skipDetectChanges: false, modelId: new Guid("ad2196b8-f1aa-4530-b3c8-f51789b7ee02"), entityTypeCount: 2)
         {
         }
 

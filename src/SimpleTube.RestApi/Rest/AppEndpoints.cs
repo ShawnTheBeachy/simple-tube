@@ -2,6 +2,7 @@
 using SimpleTube.RestApi.Infrastructure.Database;
 using SimpleTube.RestApi.Infrastructure.Images;
 using SimpleTube.RestApi.Rest.Channels;
+using SimpleTube.RestApi.Rest.Videos;
 
 namespace SimpleTube.RestApi.Rest;
 
@@ -65,7 +66,7 @@ internal static class AppEndpoints
             .CacheOutput()
             .WithName("Get bookmarks")
             .WithTags();
-        builder.MapChannelEndpoints();
+        builder.MapChannelEndpoints().MapVideoEndpoints();
         return builder;
     }
 

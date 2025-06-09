@@ -24,6 +24,11 @@ namespace SimpleTube.RestApi.Infrastructure.Mediator.Internal;
     typeof(DownloadChannelImagesCommand.Result),
     TypeInfoPropertyName = $"{nameof(Commands.DownloadChannelImagesCommand)}{nameof(Commands.DownloadChannelImagesCommand.Result)}"
 )]
+[JsonSerializable(typeof(IgnoreVideoCommand))]
+[JsonSerializable(
+    typeof(IgnoreVideoCommand.Result),
+    TypeInfoPropertyName = $"{nameof(Commands.IgnoreVideoCommand)}{nameof(Commands.IgnoreVideoCommand.Result)}"
+)]
 [JsonSerializable(typeof(ScanChannelCommand))]
 [JsonSerializable(
     typeof(ScanChannelCommand.Result),

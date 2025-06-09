@@ -1,0 +1,7 @@
+﻿### Ignore video
+PUT {{BaseUrl}}/videos/ignored
+Content-Type: application/json
+
+{
+  "videoId": "-JIpItvRfv4"
+}

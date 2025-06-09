@@ -5,14 +5,18 @@ CREATE TABLE IF NOT EXISTS [Channels]
     [Favorite]       INT          NOT NULL DEFAULT 0,
     [Handle]         VARCHAR(250) NOT NULL,
     [Id]             VARCHAR(250) NOT NULL PRIMARY KEY,
+    [Ignored]        INT          NOT NULL DEFAULT 0,
     [Name]           VARCHAR(250) NOT NULL,
     [Thumbnail]      VARCHAR      NOT NULL,
-    [LastModifiedAt] INT          NOT NULL
+    [LastModifiedAt] INT          NOT NULL,
+    [Watched]        INT          NOT NULL DEFAULT 0
 )
 WITHOUT ROWID;
 
 ALTER TABLE [Channels] ADD COLUMN [Favorite] INT NOT NULL DEFAULT 0;
 ALTER TABLE [Channels] ADD COLUMN [Banner] VARCHAR;
+ALTER TABLE [Videos] ADD COLUMN [Watched] INT NOT NULL DEFAULT 0;
+ALTER TABLE [Videos] ADD COLUMN [Ignored] INT NOT NULL DEFAULT 0;
 ALTER TABLE [Channels] RENAME [ChannelHandle] TO [Handle];
 ALTER TABLE [Channels] RENAME [ChannelId] TO [Id];
 ALTER TABLE [Channels] RENAME [ChannelName] TO [Name];

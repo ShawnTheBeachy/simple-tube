@@ -78,6 +78,7 @@ app.Run();
 [JsonSerializable(typeof(AppEndpoints.Bookmark[]))]
 [JsonSerializable(typeof(Channel))]
 [JsonSerializable(typeof(Channel[]))]
+[JsonSerializable(typeof(IgnoreVideoCommand))]
 [JsonSerializable(typeof(SubscribeCommand))]
 [JsonSerializable(typeof(Video))]
 [JsonSerializable(typeof(Video[]))]
