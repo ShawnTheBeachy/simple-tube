@@ -25,7 +25,7 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
                 "SimpleTube.RestApi.Infrastructure.Database.Entities.VideoEntity",
                 typeof(VideoEntity),
                 baseEntityType,
-                propertyCount: 6,
+                propertyCount: 8,
                 keyCount: 1);
 
             var id = runtimeEntityType.AddProperty(
@@ -114,6 +114,77 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
                 storeGenerationIndex: -1);
             description.TypeMapping = SqliteStringTypeMapping.Default;
 
+            var duration = runtimeEntityType.AddProperty(
+                "Duration",
+                typeof(TimeSpan),
+                propertyInfo: typeof(VideoEntity).GetProperty("Duration", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(VideoEntity).GetField("<Duration>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                sentinel: new TimeSpan(0, 0, 0, 0, 0));
+            duration.SetGetter(
+                TimeSpan (VideoEntity entity) => VideoEntityUnsafeAccessors.Duration(entity),
+                bool (VideoEntity entity) => VideoEntityUnsafeAccessors.Duration(entity) == default(TimeSpan),
+                TimeSpan (VideoEntity instance) => VideoEntityUnsafeAccessors.Duration(instance),
+                bool (VideoEntity instance) => VideoEntityUnsafeAccessors.Duration(instance) == default(TimeSpan));
+            duration.SetSetter(
+                (VideoEntity entity, TimeSpan value) => VideoEntityUnsafeAccessors.Duration(entity) = value);
+            duration.SetMaterializationSetter(
+                (VideoEntity entity, TimeSpan value) => VideoEntityUnsafeAccessors.Duration(entity) = value);
+            duration.SetAccessors(
+                TimeSpan (InternalEntityEntry entry) => VideoEntityUnsafeAccessors.Duration(((VideoEntity)(entry.Entity))),
+                TimeSpan (InternalEntityEntry entry) => VideoEntityUnsafeAccessors.Duration(((VideoEntity)(entry.Entity))),
+                TimeSpan (InternalEntityEntry entry) => entry.ReadOriginalValue<TimeSpan>(duration, 3),
+                TimeSpan (InternalEntityEntry entry) => entry.GetCurrentValue<TimeSpan>(duration),
+                object (ValueBuffer valueBuffer) => valueBuffer[3]);
+            duration.SetPropertyIndexes(
+                index: 3,
+                originalValueIndex: 3,
+                shadowIndex: -1,
+                relationshipIndex: -1,
+                storeGenerationIndex: -1);
+            duration.TypeMapping = TimeSpanTypeMapping.Default.Clone(
+                comparer: new ValueComparer<TimeSpan>(
+                    bool (TimeSpan v1, TimeSpan v2) => v1.Equals(v2),
+                    int (TimeSpan v) => ((object)v).GetHashCode(),
+                    TimeSpan (TimeSpan v) => v),
+                keyComparer: new ValueComparer<TimeSpan>(
+                    bool (TimeSpan v1, TimeSpan v2) => v1.Equals(v2),
+                    int (TimeSpan v) => ((object)v).GetHashCode(),
+                    TimeSpan (TimeSpan v) => v),
+                providerValueComparer: new ValueComparer<TimeSpan>(
+                    bool (TimeSpan v1, TimeSpan v2) => v1.Equals(v2),
+                    int (TimeSpan v) => ((object)v).GetHashCode(),
+                    TimeSpan (TimeSpan v) => v),
+                mappingInfo: new RelationalTypeMappingInfo(
+                    storeTypeName: "TEXT"));
+
+            var eTag = runtimeEntityType.AddProperty(
+                "ETag",
+                typeof(string),
+                propertyInfo: typeof(VideoEntity).GetProperty("ETag", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(VideoEntity).GetField("<ETag>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+            eTag.SetGetter(
+                string (VideoEntity entity) => VideoEntityUnsafeAccessors.ETag(entity),
+                bool (VideoEntity entity) => VideoEntityUnsafeAccessors.ETag(entity) == null,
+                string (VideoEntity instance) => VideoEntityUnsafeAccessors.ETag(instance),
+                bool (VideoEntity instance) => VideoEntityUnsafeAccessors.ETag(instance) == null);
+            eTag.SetSetter(
+                (VideoEntity entity, string value) => VideoEntityUnsafeAccessors.ETag(entity) = value);
+            eTag.SetMaterializationSetter(
+                (VideoEntity entity, string value) => VideoEntityUnsafeAccessors.ETag(entity) = value);
+            eTag.SetAccessors(
+                string (InternalEntityEntry entry) => VideoEntityUnsafeAccessors.ETag(((VideoEntity)(entry.Entity))),
+                string (InternalEntityEntry entry) => VideoEntityUnsafeAccessors.ETag(((VideoEntity)(entry.Entity))),
+                string (InternalEntityEntry entry) => entry.ReadOriginalValue<string>(eTag, 4),
+                string (InternalEntityEntry entry) => entry.GetCurrentValue<string>(eTag),
+                object (ValueBuffer valueBuffer) => valueBuffer[4]);
+            eTag.SetPropertyIndexes(
+                index: 4,
+                originalValueIndex: 4,
+                shadowIndex: -1,
+                relationshipIndex: -1,
+                storeGenerationIndex: -1);
+            eTag.TypeMapping = SqliteStringTypeMapping.Default;
+
             var publishedAt = runtimeEntityType.AddProperty(
                 "PublishedAt",
                 typeof(DateTime),
@@ -132,12 +203,12 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
             publishedAt.SetAccessors(
                 DateTime (InternalEntityEntry entry) => VideoEntityUnsafeAccessors.PublishedAt(((VideoEntity)(entry.Entity))),
                 DateTime (InternalEntityEntry entry) => VideoEntityUnsafeAccessors.PublishedAt(((VideoEntity)(entry.Entity))),
-                DateTime (InternalEntityEntry entry) => entry.ReadOriginalValue<DateTime>(publishedAt, 3),
+                DateTime (InternalEntityEntry entry) => entry.ReadOriginalValue<DateTime>(publishedAt, 5),
                 DateTime (InternalEntityEntry entry) => entry.GetCurrentValue<DateTime>(publishedAt),
-                object (ValueBuffer valueBuffer) => valueBuffer[3]);
+                object (ValueBuffer valueBuffer) => valueBuffer[5]);
             publishedAt.SetPropertyIndexes(
-                index: 3,
-                originalValueIndex: 3,
+                index: 5,
+                originalValueIndex: 5,
                 shadowIndex: -1,
                 relationshipIndex: -1,
                 storeGenerationIndex: -1);
@@ -160,12 +231,12 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
             thumbnail.SetAccessors(
                 string (InternalEntityEntry entry) => VideoEntityUnsafeAccessors.Thumbnail(((VideoEntity)(entry.Entity))),
                 string (InternalEntityEntry entry) => VideoEntityUnsafeAccessors.Thumbnail(((VideoEntity)(entry.Entity))),
-                string (InternalEntityEntry entry) => entry.ReadOriginalValue<string>(thumbnail, 4),
+                string (InternalEntityEntry entry) => entry.ReadOriginalValue<string>(thumbnail, 6),
                 string (InternalEntityEntry entry) => entry.GetCurrentValue<string>(thumbnail),
-                object (ValueBuffer valueBuffer) => valueBuffer[4]);
+                object (ValueBuffer valueBuffer) => valueBuffer[6]);
             thumbnail.SetPropertyIndexes(
-                index: 4,
-                originalValueIndex: 4,
+                index: 6,
+                originalValueIndex: 6,
                 shadowIndex: -1,
                 relationshipIndex: -1,
                 storeGenerationIndex: -1);
@@ -188,12 +259,12 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
             title.SetAccessors(
                 string (InternalEntityEntry entry) => VideoEntityUnsafeAccessors.Title(((VideoEntity)(entry.Entity))),
                 string (InternalEntityEntry entry) => VideoEntityUnsafeAccessors.Title(((VideoEntity)(entry.Entity))),
-                string (InternalEntityEntry entry) => entry.ReadOriginalValue<string>(title, 5),
+                string (InternalEntityEntry entry) => entry.ReadOriginalValue<string>(title, 7),
                 string (InternalEntityEntry entry) => entry.GetCurrentValue<string>(title),
-                object (ValueBuffer valueBuffer) => valueBuffer[5]);
+                object (ValueBuffer valueBuffer) => valueBuffer[7]);
             title.SetPropertyIndexes(
-                index: 5,
-                originalValueIndex: 5,
+                index: 7,
+                originalValueIndex: 7,
                 shadowIndex: -1,
                 relationshipIndex: -1,
                 storeGenerationIndex: -1);
@@ -211,6 +282,8 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
             var id = runtimeEntityType.FindProperty("Id");
             var channelId = runtimeEntityType.FindProperty("ChannelId");
             var description = runtimeEntityType.FindProperty("Description");
+            var duration = runtimeEntityType.FindProperty("Duration");
+            var eTag = runtimeEntityType.FindProperty("ETag");
             var publishedAt = runtimeEntityType.FindProperty("PublishedAt");
             var thumbnail = runtimeEntityType.FindProperty("Thumbnail");
             var title = runtimeEntityType.FindProperty("Title");
@@ -221,7 +294,7 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
                 ISnapshot (InternalEntityEntry source) =>
                 {
                     var entity = ((VideoEntity)(source.Entity));
-                    return ((ISnapshot)(new Snapshot<string, string, string, DateTime, string, string>((source.GetCurrentValue<string>(id) == null ? null : ((ValueComparer<string>)(((IProperty)id).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(id))), (source.GetCurrentValue<string>(channelId) == null ? null : ((ValueComparer<string>)(((IProperty)channelId).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(channelId))), (source.GetCurrentValue<string>(description) == null ? null : ((ValueComparer<string>)(((IProperty)description).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(description))), ((ValueComparer<DateTime>)(((IProperty)publishedAt).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTime>(publishedAt)), (source.GetCurrentValue<string>(thumbnail) == null ? null : ((ValueComparer<string>)(((IProperty)thumbnail).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(thumbnail))), (source.GetCurrentValue<string>(title) == null ? null : ((ValueComparer<string>)(((IProperty)title).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(title))))));
+                    return ((ISnapshot)(new Snapshot<string, string, string, TimeSpan, string, DateTime, string, string>((source.GetCurrentValue<string>(id) == null ? null : ((ValueComparer<string>)(((IProperty)id).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(id))), (source.GetCurrentValue<string>(channelId) == null ? null : ((ValueComparer<string>)(((IProperty)channelId).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(channelId))), (source.GetCurrentValue<string>(description) == null ? null : ((ValueComparer<string>)(((IProperty)description).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(description))), ((ValueComparer<TimeSpan>)(((IProperty)duration).GetValueComparer())).Snapshot(source.GetCurrentValue<TimeSpan>(duration)), (source.GetCurrentValue<string>(eTag) == null ? null : ((ValueComparer<string>)(((IProperty)eTag).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(eTag))), ((ValueComparer<DateTime>)(((IProperty)publishedAt).GetValueComparer())).Snapshot(source.GetCurrentValue<DateTime>(publishedAt)), (source.GetCurrentValue<string>(thumbnail) == null ? null : ((ValueComparer<string>)(((IProperty)thumbnail).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(thumbnail))), (source.GetCurrentValue<string>(title) == null ? null : ((ValueComparer<string>)(((IProperty)title).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(title))))));
                 });
             runtimeEntityType.SetStoreGeneratedValuesFactory(
                 ISnapshot () => Snapshot.Empty);
@@ -238,10 +311,10 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
                     return ((ISnapshot)(new Snapshot<string>((source.GetCurrentValue<string>(id) == null ? null : ((ValueComparer<string>)(((IProperty)id).GetKeyValueComparer())).Snapshot(source.GetCurrentValue<string>(id))))));
                 });
             runtimeEntityType.Counts = new PropertyCounts(
-                propertyCount: 6,
+                propertyCount: 8,
                 navigationCount: 0,
                 complexPropertyCount: 0,
-                originalValueCount: 6,
+                originalValueCount: 8,
                 shadowCount: 0,
                 relationshipCount: 1,
                 storeGeneratedCount: 0);

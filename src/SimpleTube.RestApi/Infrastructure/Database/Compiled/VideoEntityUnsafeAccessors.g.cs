@@ -19,6 +19,12 @@ namespace SimpleTube.RestApi.Infrastructure.Database.Compiled
         [UnsafeAccessor(UnsafeAccessorKind.Field, Name = "<Description>k__BackingField")]
         public static extern ref string Description(VideoEntity @this);
 
+        [UnsafeAccessor(UnsafeAccessorKind.Field, Name = "<Duration>k__BackingField")]
+        public static extern ref TimeSpan Duration(VideoEntity @this);
+
+        [UnsafeAccessor(UnsafeAccessorKind.Field, Name = "<ETag>k__BackingField")]
+        public static extern ref string ETag(VideoEntity @this);
+
         [UnsafeAccessor(UnsafeAccessorKind.Field, Name = "<PublishedAt>k__BackingField")]
         public static extern ref DateTime PublishedAt(VideoEntity @this);
 
