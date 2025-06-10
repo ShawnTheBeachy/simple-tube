@@ -33,7 +33,6 @@
     <PackageReference Include="SlimMessageBus.Host.Memory" Version="3.2.0" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="temp\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>

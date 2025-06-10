@@ -17,5 +17,9 @@ internal static class DependencyInjection
             .AddTransient<
                 IQueryHandler<ChannelVideosQuery, ChannelVideosQuery.Result>,
                 ChannelVideosQueryHandler
+            >()
+            .AddTransient<
+                IQueryHandler<SubscriptionsQuery, SubscriptionsQuery.Result>,
+                SubscriptionsQueryHandler
             >();
 }

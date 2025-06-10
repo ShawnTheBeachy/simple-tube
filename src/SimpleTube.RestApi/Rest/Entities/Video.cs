@@ -1,4 +1,4 @@
-﻿namespace SimpleTube.RestApi.Rest.Videos;
+﻿namespace SimpleTube.RestApi.Rest.Entities;
 
 internal sealed record Video : RestEntity
 {

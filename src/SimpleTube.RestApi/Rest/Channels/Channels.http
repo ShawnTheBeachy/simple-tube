@@ -1,18 +1,3 @@
-### Subscribe to channel
-
-PUT {{BaseUrl}}/channels
-Accept: application/json
-Content-Type: application/json
-
-{
-    "channelHandle": "PoorBishopHooper"
-}
-
-### Unsubscribe from channel
-
-DELETE {{BaseUrl}}/channels/PoorBishopHooper
-Accept: application/json
-
 ### Get all channels
 
 GET {{BaseUrl}}/channels

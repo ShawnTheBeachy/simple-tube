@@ -25,7 +25,7 @@ public static class DependencyInjection
         if (configure is not null)
             configure(configBuilder);
         else
-            configBuilder.AddLogging().AddValidation();
+            configBuilder.AddValidation();
 
         return services;
     }
@@ -63,17 +63,6 @@ public static class DependencyInjection
                     typeof(DelegatingMessageHandler<TCommand, TResult>),
                     typeof(THandler),
                     lifetime
-                )
-            );
-            return this;
-        }
-
-        public MediatorConfigurationBuilder AddLogging()
-        {
-            _services.TryAddEnumerable(
-                ServiceDescriptor.Transient(
-                    typeof(DelegatingMessageHandler<,>),
-                    typeof(LoggingDelegatingMessageHandler<,>)
                 )
             );
             return this;

@@ -1,0 +1,19 @@
+### Subscribe to channel
+
+PUT {{BaseUrl}}/subscriptions
+Accept: application/json
+Content-Type: application/json
+
+{
+    "channelHandle": "PoorBishopHooper"
+}
+
+### Unsubscribe from channel
+
+DELETE {{BaseUrl}}/subscriptions/PoorBishopHooper
+Accept: application/json
+
+### Get subscribed channels
+
+GET {{BaseUrl}}/subscriptions
+Accept: application/json

@@ -18,6 +18,7 @@ internal static class DependencyInjection
                         .UseModel(AppDbContextModel.Instance)
             )
             .AddTransient<AuditingSaveChangesInterceptor>()
-            .AddSingleton(new ConnectionStringProvider { ConnectionString = connectionString });
+            .AddSingleton(new ConnectionStringProvider { ConnectionString = connectionString })
+            .AddTransient<IDbConnectionFactory, SqliteConnectionFactory>();
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace SimpleTube.RestApi.Rest;
+namespace SimpleTube.RestApi.Rest.Entities;
 
 internal abstract record RestEntity
 {

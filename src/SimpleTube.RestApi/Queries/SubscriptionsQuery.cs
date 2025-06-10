@@ -3,7 +3,7 @@ using SimpleTube.RestApi.Infrastructure.Mediator;
 
 namespace SimpleTube.RestApi.Queries;
 
-public sealed record ChannelsQuery : IQuery<ChannelsQuery.Result>
+public sealed record SubscriptionsQuery : IQuery<SubscriptionsQuery.Result>
 {
     public sealed record Result
     {
@@ -15,12 +15,11 @@ public sealed record ChannelsQuery : IQuery<ChannelsQuery.Result>
             public required string ChannelId { get; init; }
             public required string ChannelName { get; init; }
             public required string ChannelThumbnail { get; init; }
-            public required bool Subscribed { get; init; }
             public required int UnwatchedVideos { get; init; }
         }
     }
 
-    public sealed class Validator : AbstractValidator<ChannelsQuery>
+    public sealed class Validator : AbstractValidator<SubscriptionsQuery>
     {
         public Validator() { }
     }

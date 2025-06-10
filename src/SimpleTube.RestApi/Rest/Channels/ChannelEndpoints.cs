@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SimpleTube.RestApi.Commands;
-using SimpleTube.RestApi.Extensions;
+﻿using SimpleTube.RestApi.Extensions;
 using SimpleTube.RestApi.Infrastructure.Mediator;
 using SimpleTube.RestApi.Queries;
-using SimpleTube.RestApi.Rest.Videos;
+using SimpleTube.RestApi.Rest.Entities;
 
 namespace SimpleTube.RestApi.Rest.Channels;
 
@@ -32,6 +30,7 @@ internal static class ChannelEndpoints
                             Handle = channel.ChannelHandle,
                             Id = channel.ChannelId,
                             Name = channel.ChannelName,
+                            Subscribed = channel.Subscribed,
                             Thumbnail = channel.ChannelThumbnail.ServerImageUrl(
                                 httpContextAccessor
                             ),
@@ -105,51 +104,6 @@ internal static class ChannelEndpoints
             .CacheOutput()
             .WithName("Get channel videos")
             .WithTags("channels", "videos");
-        group
-            .MapPut(
-                "/",
-                async (
-                    [FromBody] SubscribeCommand command,
-                    IMediator mediator,
-                    IHttpContextAccessor httpContextAccessor,
-                    CancellationToken cancellationToken
-                ) =>
-                {
-                    var result = await mediator.Execute<SubscribeCommand, SubscribeCommand.Result>(
-                        command,
-                        cancellationToken
-                    );
-                    return new Channel
-                    {
-                        Banner = result.ChannelBanner.ServerImageUrl(httpContextAccessor),
-                        Handle = result.ChannelHandle,
-                        Id = result.ChannelId,
-                        Name = result.ChannelName,
-                        Thumbnail = result.ChannelThumbnail.ServerImageUrl(httpContextAccessor),
-                        Url = $"{groupName}/{result.ChannelHandle}",
-                    };
-                }
-            )
-            .WithName("Subscribe to channel")
-            .WithTags("channels");
-        group
-            .MapDelete(
-                "/{channelHandle}",
-                async (
-                    string channelHandle,
-                    IMediator mediator,
-                    CancellationToken cancellationToken
-                ) =>
-                {
-                    _ = await mediator.Execute<UnsubscribeCommand, UnsubscribeCommand.Result>(
-                        new UnsubscribeCommand { ChannelHandle = channelHandle },
-                        cancellationToken
-                    );
-                    return TypedResults.Ok();
-                }
-            )
-            .WithName("Unsubscribe from channel")
-            .WithTags("channels");
         return builder;
     }
 }

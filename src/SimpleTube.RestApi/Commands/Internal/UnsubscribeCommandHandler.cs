@@ -10,8 +10,8 @@ internal sealed class UnsubscribeCommandHandler
     private readonly ConnectionStringProvider _connectionStringProvider;
 
     private const string Sql = """
-        DELETE
-        FROM [Channels]
+        UPDATE [Channels]
+        SET [Subscribed] = 0
         WHERE [Handle] = @channelHandle
         """;
 

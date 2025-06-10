@@ -1,7 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 using SimpleTube.RestApi.Exceptions;
 using SimpleTube.RestApi.Infrastructure.Database;
-using SimpleTube.RestApi.Infrastructure.Database.Entities;
 using SimpleTube.RestApi.Infrastructure.Mediator;
 using SimpleTube.RestApi.Infrastructure.YouTube;
 using SimpleTube.RestApi.Infrastructure.YouTube.Models;
@@ -14,27 +13,17 @@ internal sealed class SubscribeCommandHandler
     : ICommandHandler<SubscribeCommand, SubscribeCommand.Result>
 {
     private readonly ConnectionStringProvider _connectionStringProvider;
-    private readonly AppDbContext _dbContext;
+    private readonly IDbConnectionFactory _dbConnectionFactory;
     private readonly IHttpClientFactory _httpClientFactory;
-
-    private const string GetExistingSql = """
-        SELECT [Handle],
-               [Id],
-               [Name],
-               [Thumbnail],
-               [Banner]
-        FROM [Channels]
-        WHERE [Handle] = @channelHandle
-        """;
 
     public SubscribeCommandHandler(
         ConnectionStringProvider connectionStringProvider,
-        AppDbContext dbContext,
+        IDbConnectionFactory dbConnectionFactory,
         IHttpClientFactory httpClientFactory
     )
     {
         _connectionStringProvider = connectionStringProvider;
-        _dbContext = dbContext;
+        _dbConnectionFactory = dbConnectionFactory;
         _httpClientFactory = httpClientFactory;
     }
 
@@ -43,42 +32,21 @@ internal sealed class SubscribeCommandHandler
         CancellationToken cancellationToken
     )
     {
-        var channel = await GetExistingChannel(command, cancellationToken);
+        var result = await GetExistingChannel(command, cancellationToken);
 
-        if (channel is not null)
-            return new SubscribeCommand.Result
-            {
-                ChannelBanner = channel.Banner,
-                ChannelHandle = channel.Handle,
-                ChannelId = channel.Id,
-                ChannelName = channel.Name,
-                ChannelThumbnail = channel.Thumbnail,
-            };
+        if (result is not null)
+        {
+            await SubscribeToExisting(command, cancellationToken);
+            return result;
+        }
 
         var channelInfo = await GetChannelInfo(command, cancellationToken);
-        channel = new ChannelEntity
-        {
-            Banner = channelInfo.BrandingSettings?.Image?.BannerUrl,
-            Handle = command.ChannelHandle,
-            Id = channelInfo.Id,
-            Name = channelInfo.Snippet.Title,
-            Thumbnail =
-                channelInfo.Snippet.Thumbnails.Max?.Url ?? channelInfo.Snippet.Thumbnails.High.Url,
-        };
-        _dbContext.Channels.Add(channel);
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        result = await SubscribeToNew(command, channelInfo, cancellationToken);
         await MessageBus.Current.Publish(
-            new SubscribedToChannelMessage { ChannelId = channel.Id },
+            new SubscribedToChannelMessage { ChannelId = channelInfo.Id },
             cancellationToken: cancellationToken
         );
-        return new SubscribeCommand.Result
-        {
-            ChannelBanner = channel.Banner,
-            ChannelHandle = channel.Handle,
-            ChannelId = channel.Id,
-            ChannelName = channel.Name,
-            ChannelThumbnail = channel.Thumbnail,
-        };
+        return result;
     }
 
     private async ValueTask<Channel> GetChannelInfo(
@@ -96,7 +64,7 @@ internal sealed class SubscribeCommandHandler
         return response.Items[0];
     }
 
-    private async ValueTask<ChannelEntity?> GetExistingChannel(
+    private async ValueTask<SubscribeCommand.Result?> GetExistingChannel(
         SubscribeCommand command,
         CancellationToken cancellationToken
     )
@@ -106,24 +74,91 @@ internal sealed class SubscribeCommandHandler
         );
         await connection.OpenAsync(cancellationToken);
         var sqlCommand = connection.CreateCommand();
-        sqlCommand.CommandText = GetExistingSql;
+        sqlCommand.CommandText = SqlQueries.GetExisting;
         sqlCommand.Parameters.AddWithValue("@channelHandle", command.ChannelHandle);
 
         var reader = await sqlCommand.ExecuteReaderAsync(cancellationToken);
 
         while (await reader.ReadAsync(cancellationToken))
         {
-            var subscription = new ChannelEntity
+            var result = new SubscribeCommand.Result
             {
-                Handle = reader.GetString(0),
-                Id = reader.GetString(1),
-                Name = reader.GetString(2),
-                Thumbnail = reader.GetString(3),
-                Banner = reader.GetString(4),
+                ChannelHandle = reader.GetString(0),
+                ChannelId = reader.GetString(1),
+                ChannelName = reader.GetString(2),
+                ChannelThumbnail = reader.GetString(3),
+                ChannelBanner = reader.GetString(4),
             };
-            return subscription;
+            return result;
         }
 
         return null;
+    }
+
+    private async ValueTask SubscribeToExisting(
+        SubscribeCommand command,
+        CancellationToken cancellationToken
+    )
+    {
+        await using var connection = await _dbConnectionFactory.CreateConnection(cancellationToken);
+        var sqlCommand = connection.CreateCommand();
+        sqlCommand.CommandText = SqlQueries.SubscribeToExisting;
+        sqlCommand.Parameters.AddWithValue("channelHandle", command.ChannelHandle);
+        await sqlCommand.ExecuteNonQueryAsync(cancellationToken);
+    }
+
+    private async ValueTask<SubscribeCommand.Result> SubscribeToNew(
+        SubscribeCommand command,
+        Channel channel,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = new SubscribeCommand.Result
+        {
+            ChannelBanner = channel.BrandingSettings?.Image?.BannerUrl,
+            ChannelHandle = command.ChannelHandle,
+            ChannelId = channel.Id,
+            ChannelName = channel.Snippet.Title,
+            ChannelThumbnail =
+                channel.Snippet.Thumbnails.Max?.Url ?? channel.Snippet.Thumbnails.High.Url,
+        };
+
+        await using var connection = await _dbConnectionFactory.CreateConnection(cancellationToken);
+        var sqlCommand = connection.CreateCommand();
+        sqlCommand.CommandText = SqlQueries.Create;
+        sqlCommand.Parameters.AddWithValue("banner", result.ChannelBanner);
+        sqlCommand.Parameters.AddWithValue("handle", result.ChannelHandle);
+        sqlCommand.Parameters.AddWithValue("id", result.ChannelId);
+        sqlCommand.Parameters.AddWithValue("name", result.ChannelName);
+        sqlCommand.Parameters.AddWithValue("now", DateTimeOffset.Now);
+        sqlCommand.Parameters.AddWithValue("thumbnail", result.ChannelThumbnail);
+        await sqlCommand.ExecuteNonQueryAsync(cancellationToken);
+        return result;
+    }
+
+    private static class SqlQueries
+    {
+        public const string Create = """
+            INSERT INTO [Channels]
+                ([Banner], [CreatedAt], [Handle], [Id], [Name], [Thumbnail], [LastModifiedAt], [Subscribed])
+            VALUES (@banner, @now, @handle, @id, @name, @thumbnail, @now, 1)
+            """;
+
+        public const string GetExisting = """
+            SELECT [Handle],
+                   [Id],
+                   [Name],
+                   [Thumbnail],
+                   [Banner]
+            FROM [Channels]
+            WHERE [Handle] = @channelHandle
+            """;
+
+        public const string SubscribeToExisting = """
+            UPDATE [Channels]
+            SET [Subscribed]     = 1,
+                [LastModifiedAt] = GETDATE()
+            WHERE [Handle] = @channelHandle                                    
+            """;
     }
 }

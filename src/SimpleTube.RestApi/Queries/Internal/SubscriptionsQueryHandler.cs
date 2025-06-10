@@ -5,7 +5,8 @@ using SimpleTube.RestApi.Infrastructure.Mediator;
 
 namespace SimpleTube.RestApi.Queries.Internal;
 
-internal sealed class ChannelsQueryHandler : IQueryHandler<ChannelsQuery, ChannelsQuery.Result>
+internal sealed class SubscriptionsQueryHandler
+    : IQueryHandler<SubscriptionsQuery, SubscriptionsQuery.Result>
 {
     private readonly ConnectionStringProvider _connectionStringProvider;
 
@@ -14,12 +15,12 @@ internal sealed class ChannelsQueryHandler : IQueryHandler<ChannelsQuery, Channe
                [Channels].[Id],
                [Channels].[Name],
                [Channels].[Thumbnail],
-               [Channels].[Subscribed],
                COUNT([Videos].[Id])
         FROM [Channels]
         LEFT JOIN [Videos]
             ON [Videos].[ChannelId] = [Channels].[Id]
             AND [Videos].[Watched] = 0
+        WHERE [Channels].[Subscribed] = 1
         GROUP BY [Channels].[Handle],
                  [Channels].[Id],
                  [Channels].[Name],
@@ -28,13 +29,13 @@ internal sealed class ChannelsQueryHandler : IQueryHandler<ChannelsQuery, Channe
         ORDER BY [Name] COLLATE NOCASE
         """;
 
-    public ChannelsQueryHandler(ConnectionStringProvider connectionStringProvider)
+    public SubscriptionsQueryHandler(ConnectionStringProvider connectionStringProvider)
     {
         _connectionStringProvider = connectionStringProvider;
     }
 
-    public async ValueTask<ChannelsQuery.Result> Execute(
-        ChannelsQuery query,
+    public async ValueTask<SubscriptionsQuery.Result> Execute(
+        SubscriptionsQuery query,
         CancellationToken cancellationToken
     )
     {
@@ -46,23 +47,22 @@ internal sealed class ChannelsQueryHandler : IQueryHandler<ChannelsQuery, Channe
         command.CommandText = Sql;
         var reader = await command.ExecuteReaderAsync(cancellationToken);
 
-        var channels = new List<ChannelsQuery.Result.Channel>();
+        var channels = new List<SubscriptionsQuery.Result.Channel>();
 
         while (await reader.ReadAsync(cancellationToken))
         {
             channels.Add(
-                new ChannelsQuery.Result.Channel
+                new SubscriptionsQuery.Result.Channel
                 {
                     ChannelHandle = reader.GetString(0),
                     ChannelId = reader.GetString(1),
                     ChannelName = reader.GetString(2),
                     ChannelThumbnail = reader.GetString(3).ImageUrl(),
-                    Subscribed = reader.GetBoolean(4),
-                    UnwatchedVideos = reader.GetInt16(5),
+                    UnwatchedVideos = reader.GetInt16(4),
                 }
             );
         }
 
-        return new ChannelsQuery.Result { Channels = channels.ToArray() };
+        return new SubscriptionsQuery.Result { Channels = channels.ToArray() };
     }
 }

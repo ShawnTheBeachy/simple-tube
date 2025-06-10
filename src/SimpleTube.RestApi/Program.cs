@@ -10,8 +10,7 @@ using SimpleTube.RestApi.Infrastructure.Images;
 using SimpleTube.RestApi.Infrastructure.Mediator;
 using SimpleTube.RestApi.Queries.Internal;
 using SimpleTube.RestApi.Rest;
-using SimpleTube.RestApi.Rest.Channels;
-using SimpleTube.RestApi.Rest.Videos;
+using SimpleTube.RestApi.Rest.Entities;
 using SlimMessageBus.Host;
 using SlimMessageBus.Host.Memory;
 
