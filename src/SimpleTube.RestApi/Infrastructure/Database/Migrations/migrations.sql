@@ -29,9 +29,13 @@ CREATE TABLE IF NOT EXISTS [Videos]
     [PublishedAt] INT          NOT NULL,
     [Thumbnail]   VARCHAR      NOT NULL,
     [Title]       VARCHAR(250) NOT NULL,
+    [Url]         VARCHAR      NULL,
     [Watched]     INT          NOT NULL DEFAULT 0
 )
 WITHOUT ROWID;
 
 ALTER TABLE [Videos]
     ADD COLUMN [Watched] INT NOT NULL DEFAULT 0;
+
+ALTER TABLE [Videos]
+    ADD COLUMN [Url] NULL;

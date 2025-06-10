@@ -22,6 +22,28 @@ internal static class HttpClientExtensions
         return response.Items[0];
     }
 
+    public static async IAsyncEnumerable<Video> GetVideosById(
+        this HttpClient httpClient,
+        IReadOnlyList<string> ids,
+        [EnumeratorCancellation] CancellationToken cancellationToken
+    )
+    {
+        string? pageToken = null;
+
+        do
+        {
+            var response = await httpClient.Send(
+                $"videos?id={string.Join(',', ids)}&part=snippet,contentDetails&maxResults=50&pageToken={pageToken}",
+                YouTubeJsonSerializerContext.Default.ListResponseVideo,
+                cancellationToken
+            );
+            pageToken = response.NextPageToken;
+
+            foreach (var result in response.Items)
+                yield return result;
+        } while (pageToken is not null);
+    }
+
     public static async ValueTask<ListResponse<Channel>> ListChannels(
         this HttpClient httpClient,
         string forHandle,
@@ -82,9 +104,13 @@ internal static class HttpClientExtensions
 [JsonSerializable(typeof(ChannelSnippet))]
 [JsonSerializable(typeof(ListResponse<Channel>))]
 [JsonSerializable(typeof(ListResponse<SearchResult>))]
+[JsonSerializable(typeof(ListResponse<Video>))]
 [JsonSerializable(typeof(SearchResult))]
 [JsonSerializable(typeof(SearchResultId))]
 [JsonSerializable(typeof(SearchResultSnippet))]
 [JsonSerializable(typeof(Thumbnail))]
 [JsonSerializable(typeof(Thumbnails))]
+[JsonSerializable(typeof(Video))]
+[JsonSerializable(typeof(VideoContentDetails))]
+[JsonSerializable(typeof(VideoSnippet))]
 internal sealed partial class YouTubeJsonSerializerContext : JsonSerializerContext;

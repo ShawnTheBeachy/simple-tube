@@ -33,6 +33,18 @@
     <PackageReference Include="SlimMessageBus.Host.Memory" Version="3.2.0" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="temp\" />
     <Folder Include="wwwroot\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="lib\yt-dlp" />
+    <Content Include="lib\yt-dlp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Remove="lib\yt-dlp.exe" />
+    <Content Include="lib\yt-dlp.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Remove="#C#\Users\ShawnBeachy\AppData\Local\Temp\tmphfqhh0#\-JIpItvRfv4.webm" />
   </ItemGroup>
 </Project>

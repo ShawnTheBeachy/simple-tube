@@ -1,4 +1,5 @@
 ﻿using SimpleTube.RestApi.Commands.Internal.DownloadChannelImages;
+using SimpleTube.RestApi.Commands.Internal.DownloadVideo;
 using SimpleTube.RestApi.Commands.Internal.ScanChannel;
 using SimpleTube.RestApi.Infrastructure.Mediator;
 
@@ -13,6 +14,10 @@ internal static class DependencyInjection
                 DownloadChannelImagesCommandHandler
             >()
             .AddScoped<DownloadChannelImagesOnSubscribedConsumer>()
+            .AddTransient<
+                ICommandHandler<DownloadVideoCommand, DownloadVideoCommand.Result>,
+                DownloadVideoCommandHandler
+            >()
             .AddTransient<
                 ICommandHandler<IgnoreVideoCommand, IgnoreVideoCommand.Result>,
                 IgnoreVideoCommandHandler

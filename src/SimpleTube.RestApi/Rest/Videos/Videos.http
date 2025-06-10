@@ -5,3 +5,11 @@ Content-Type: application/json
 {
   "videoId": "-JIpItvRfv4"
 }
+
+### Download video
+PUT {{BaseUrl}}/videos/downloaded
+Content-Type: application/json
+
+{
+  "videoId": "-JIpItvRfv4"
+}
