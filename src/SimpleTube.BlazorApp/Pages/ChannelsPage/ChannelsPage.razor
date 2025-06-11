@@ -1,34 +1,55 @@
 ﻿@page "/channels"
+@page "/subscriptions"
 
 <PageTitle>Channels</PageTitle>
 
-<div class="container">
+<div class="col container">
     <Subscribe />
-    <ul>
-        @foreach (var channel in Channels)
-        {
-            <li @key="@channel.Id">
-                <a href="@channel.Url">
-                    <img alt="Channel thumbnail"
-                         class="thumbnail"
-                         src="@channel.Thumbnail?dpr=75" />
-                    <div class="channel-info">
-                        <h4 class="channel-name">
-                            @channel.Name
-                        </h4>
-                        <span class="channel-handle">
-                            @@@channel.Handle
-                        </span>
-                    </div>
-
-                    @if (channel.UnwatchedVideos > 0)
-                    {
-                        <div class="pill">
-                            @channel.UnwatchedVideos
+    <div class="content row">
+        <ul id="channels">
+            @foreach (var channel in Channels)
+            {
+                <li @key="@channel.Id">
+                    <a href="@channel.Url">
+                        <img alt="Channel thumbnail"
+                             class="thumbnail"
+                             src="@channel.Thumbnail?dpr=75" />
+                        <div class="channel-info">
+                            <h4 class="channel-name">
+                                @channel.Name
+                            </h4>
+                            <span class="channel-handle">
+                                @@@channel.Handle
+                            </span>
                         </div>
-                    }
-                </a>
-            </li>
-        }
-    </ul>
+
+                        @if (channel.UnwatchedVideos > 0)
+                        {
+                            <div class="pill">
+                                @channel.UnwatchedVideos
+                            </div>
+                        }
+                    </a>
+                </li>
+            }
+        </ul>
+        <div class="col filters">
+            <h3>
+                View settings
+            </h3>
+
+            <ul id="views-menu">
+                <li>
+                    <a href="/channels">
+                        All channels
+                    </a>
+                </li>
+                <li>
+                    <a href="/subscriptions">
+                        Subscriptions
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
