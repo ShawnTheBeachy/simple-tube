@@ -45,5 +45,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Remove="#C#\Users\ShawnBeachy\AppData\Local\Temp\tmphfqhh0#\-JIpItvRfv4.webm" />
+    <None Remove="Infrastructure\Database\Migrations\migrations.sql" />
+    <Content Include="Infrastructure\Database\Migrations\migrations.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

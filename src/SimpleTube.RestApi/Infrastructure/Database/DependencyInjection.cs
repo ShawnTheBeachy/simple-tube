@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 using SimpleTube.RestApi.Infrastructure.Database.Compiled;
 using SimpleTube.RestApi.Infrastructure.Database.Interceptors;
 
@@ -10,6 +11,7 @@ internal static class DependencyInjection
     {
         var dbPath = AppData.GetFile("app.db");
         var connectionString = $"Data Source={dbPath}";
+        EnsureDatabaseFileExists(dbPath, connectionString);
         return services
             .AddDbContext<AppDbContext>(
                 (sp, opts) =>
@@ -20,5 +22,22 @@ internal static class DependencyInjection
             .AddTransient<AuditingSaveChangesInterceptor>()
             .AddSingleton(new ConnectionStringProvider { ConnectionString = connectionString })
             .AddTransient<IDbConnectionFactory, SqliteConnectionFactory>();
+    }
+
+    private static void EnsureDatabaseFileExists(string filePath, string connectionString)
+    {
+        var fileInfo = new FileInfo(filePath);
+        Directory.CreateDirectory(fileInfo.DirectoryName!);
+
+        if (File.Exists(filePath))
+            return;
+
+        var migrationsSql = File.ReadAllText("Infrastructure/Database/Migrations/migrations.sql");
+
+        using var connection = new SqliteConnection(connectionString);
+        connection.Open();
+        var command = connection.CreateCommand();
+        command.CommandText = migrationsSql;
+        command.ExecuteNonQuery();
     }
 }
