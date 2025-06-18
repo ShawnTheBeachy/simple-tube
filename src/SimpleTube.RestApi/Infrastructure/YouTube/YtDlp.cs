@@ -4,13 +4,21 @@ namespace SimpleTube.RestApi.Infrastructure.YouTube;
 
 internal static class YtDlp
 {
-    public static void Invoke(params string[] args)
+    public static Process Invoke(string args)
     {
         var ytDlp =
             Environment.OSVersion.Platform == PlatformID.Unix
             || Environment.OSVersion.Platform == PlatformID.MacOSX
                 ? "./lib/yt-dlp"
                 : "./lib/yt-dlp.exe";
-        Process.Start(ytDlp, args);
+        var process = new ProcessStartInfo
+        {
+            Arguments = args,
+            CreateNoWindow = true,
+            FileName = ytDlp,
+            RedirectStandardOutput = true,
+            UseShellExecute = false,
+        };
+        return Process.Start(process)!;
     }
 }
