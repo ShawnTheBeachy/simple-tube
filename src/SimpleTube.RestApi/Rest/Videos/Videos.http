@@ -13,3 +13,9 @@ Content-Type: application/json
 {
   "videoId": "-JIpItvRfv4"
 }
+
+### Get video info
+GET {{BaseUrl}}/videos/4vY-wPL7fVs
+
+### Get video stream
+GET {{BaseUrl}}/videos/4vY-wPL7fVs/streams/webm

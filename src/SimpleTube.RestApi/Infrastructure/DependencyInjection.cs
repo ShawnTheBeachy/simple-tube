@@ -1,4 +1,5 @@
 ﻿using SimpleTube.RestApi.Infrastructure.Database;
+using SimpleTube.RestApi.Infrastructure.Downloads;
 using SimpleTube.RestApi.Infrastructure.Images;
 using SimpleTube.RestApi.Infrastructure.Tasks;
 using SimpleTube.RestApi.Infrastructure.YouTube;
@@ -10,5 +11,5 @@ internal static class DependencyInjection
     public static IServiceCollection AddInfrastructure(
         this IServiceCollection services,
         IConfiguration configuration
-    ) => services.AddDatabase().AddImages().AddTasks().AddYouTube(configuration);
+    ) => services.AddDatabase().AddDownloads().AddImages().AddTasks().AddYouTube(configuration);
 }

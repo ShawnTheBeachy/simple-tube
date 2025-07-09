@@ -30,9 +30,11 @@ public sealed partial class ChannelPage : IAsyncDisposable
         if (ChannelInfo is not null && ChannelHandle == ChannelInfo.Handle)
             return;
 
-        var channel = await _httpClientFactory
-            .CreateApiClient()
-            .GetFromJsonAsync<Channel>($"channels/{ChannelHandle}", _cancellation.Token);
+        var client = _httpClientFactory.CreateApiClient();
+        var channel = await client.GetFromJsonAsync<Channel>(
+            $"channels/{ChannelHandle}",
+            _cancellation.Token
+        );
         ChannelInfo = channel!;
     }
 

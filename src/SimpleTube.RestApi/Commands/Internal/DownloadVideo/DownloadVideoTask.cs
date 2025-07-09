@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using SimpleTube.RestApi.Infrastructure.Downloads;
 using SimpleTube.RestApi.Infrastructure.Tasks;
 using SimpleTube.RestApi.Infrastructure.YouTube;
 
@@ -7,11 +8,13 @@ namespace SimpleTube.RestApi.Commands.Internal.DownloadVideo;
 
 internal sealed partial class DownloadVideoTask : ITask
 {
+    private readonly IDownloadsManager _downloadsManager;
     private readonly string _videoId;
     public IProgress<ProgressReport> Progress { get; } = new Progress<ProgressReport>();
 
-    public DownloadVideoTask(string videoId)
+    public DownloadVideoTask(string videoId, IDownloadsManager downloadsManager)
     {
+        _downloadsManager = downloadsManager;
         _videoId = videoId;
     }
 
@@ -53,6 +56,24 @@ internal sealed partial class DownloadVideoTask : ITask
         }
 
         await process.WaitForExitAsync(cancellationToken);
+        var downloadInfo = await GetDownloadInfo(tempName, cancellationToken);
+        var videoFile = Path.Combine(tempName, $"{_videoId}.{downloadInfo.Extension}");
+        _downloadsManager.AddDownload(downloadInfo.ChannelId, downloadInfo.Id, videoFile);
+        Directory.Delete(tempName, true);
+    }
+
+    private async ValueTask<DownloadInfo> GetDownloadInfo(
+        string directory,
+        CancellationToken cancellationToken
+    )
+    {
+        await using var stream = File.OpenRead(Path.Combine(directory, $"{_videoId}.info.json"));
+        var info = await JsonSerializer.DeserializeAsync<DownloadInfo>(
+            stream,
+            YtDlpJsonContext.Default.DownloadInfo,
+            cancellationToken
+        );
+        return info ?? throw new Exception("Failed to deserialize download info.");
     }
 
     public sealed record ProgressReport
@@ -76,12 +97,31 @@ internal sealed partial class DownloadVideoTask : ITask
         public decimal Percent { get; init; }
 
         [JsonPropertyName("speed")]
-        public double Speed { get; init; }
+        public double? Speed { get; init; }
+
+        [JsonPropertyName("status")]
+        public string? Status { get; init; }
+
+        [JsonPropertyName("total_bytes")]
+        public double? TotalBytes { get; init; }
 
         [JsonPropertyName("total_bytes_estimate")]
-        public required double TotalBytesEstimate { get; init; }
+        public double? TotalBytesEstimate { get; init; }
     }
 
+    public sealed record DownloadInfo
+    {
+        [JsonPropertyName("channel_id")]
+        public required string ChannelId { get; init; }
+
+        [JsonPropertyName("ext")]
+        public required string Extension { get; init; }
+
+        [JsonPropertyName("id")]
+        public required string Id { get; init; }
+    }
+
+    [JsonSerializable(typeof(DownloadInfo))]
     [JsonSerializable(typeof(ProgressReport))]
     private sealed partial class YtDlpJsonContext : JsonSerializerContext;
 }

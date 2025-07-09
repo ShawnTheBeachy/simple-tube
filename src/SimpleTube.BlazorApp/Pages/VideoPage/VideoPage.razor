@@ -1,0 +1,48 @@
+﻿@page "/videos/{videoId}"
+
+@if (Video is null)
+{
+    return;
+}
+
+<div class="container">
+    @if (Video.Streams.Count < 1)
+    {
+        <iframe src="@(Video?.EmbedUrl ?? $"https://www.youtube.com/embed/{VideoId}?autoplay=1")"
+                title="Video">
+        </iframe>
+    }
+    else
+    {
+        <video autoplay
+               controls
+               poster="@Video.Thumbnail">
+            @foreach (var stream in Video.Streams)
+            {
+                <source @key="stream.Type"
+                        src="@($"{_serverUrlProvider.ServerUrl}{stream.Url}")"
+                        type="@stream.Type" />
+            }
+        </video>
+    }
+
+    <div id="video-info">
+        <h1>
+            @Video!.Title
+        </h1>
+        @if (Video.Channel is not null)
+        {
+            <a href="@Video.Channel.Url"
+               id="channel">
+                @(Video.Channel.Name ?? Video.Channel.Handle)
+            </a>
+        }
+        <p id="video-description">
+            @Video.Description
+        </p>
+    </div>
+
+    <button @onclick="DownloadVideo">
+        Download
+    </button>
+</div>

@@ -1,0 +1,42 @@
+﻿.container {
+    container-name: video-container;
+    container-type: inline-size;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+}
+
+iframe, video {
+    aspect-ratio: 4 / 3;
+    border: none;
+    margin-bottom: calc(var(--spacing) * 4);
+    width: 100%;
+}
+
+@container video-container (min-width: 40rem) {
+    iframe, video {
+        aspect-ratio: 16 / 9;
+    }
+}
+
+#video-info {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--text-xl);
+    padding: calc(var(--spacing) * 6);
+}
+
+a#channel {
+    color: var(--color-gray-500);
+    font-size: var(--text-base);
+    line-height: var(--text-base--line-height);
+    margin-top: calc(var(--spacing) * 2);
+}
+
+#video-description {
+    color: var(--color-gray-100);
+    font-size: var(--text-base);
+    line-height: var(--text-base--line-height);
+    margin-top: calc(var(--spacing) * 6);
+}
